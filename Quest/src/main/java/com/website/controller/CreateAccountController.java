@@ -1,8 +1,15 @@
 package com.website.controller;
 
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.website.dto.CreateAccountDTO;
@@ -22,12 +29,16 @@ public class CreateAccountController {
 	}
 
 	@RequestMapping("/create_account_submit")
-	public String CreateAccountSave(CreateAccountDTO userData) {
+	public String CreateAccountSave(@Valid @ModelAttribute("createAccountDTO") CreateAccountDTO userData, BindingResult result) {
 
-//		Goes to the class ServiceI
+//      If input fields requirements are not met go back to create account page, displaying errors
+		if(result.hasErrors()) {
+			return "create_account/create_account";
+		}
+		
+//		Saves user input details in database
 		serviceI.SaveCreateAccount(userData);
-
+		
 		return "home";
 	}
-
 }

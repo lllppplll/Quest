@@ -22,5 +22,4 @@ public class DAOImpl implements DAOI {
 	    jdbcTemplate.update(sql1, sqlParameters1);
 	
 	}
-
 }

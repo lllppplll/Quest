@@ -1,0 +1,9 @@
+@charset "ISO-8859-1";
+
+#email_required{
+	display: none;
+}
+
+#password_required_length{
+	display: none;
+}
