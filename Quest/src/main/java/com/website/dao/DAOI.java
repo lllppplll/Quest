@@ -1,5 +1,9 @@
 package com.website.dao;
 
-public interface DAOI {
+import com.website.dto.CreateAccountDTO;
 
+public interface DAOI {
+	
+	void SaveCreateAccount(CreateAccountDTO userData);
+	
 }

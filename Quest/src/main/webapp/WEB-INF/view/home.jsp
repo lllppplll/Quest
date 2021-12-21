@@ -13,7 +13,9 @@
 
 </head>
 <body>
-<h1>hello world</h1>
+
+<h1>Quest</h1>
+<a href="create_account_page" >Create Account</a>
 
 <script src="URL/javascript/home.js"></script>
 </body>

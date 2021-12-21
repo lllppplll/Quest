@@ -1,5 +1,10 @@
 package com.website.service;
 
-public interface ServiceI {
+import com.website.dto.CreateAccountDTO;
 
+public interface ServiceI {
+	
+//	Send details to database
+	void SaveCreateAccount(CreateAccountDTO userData);
+	
 }
