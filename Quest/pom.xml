@@ -73,12 +73,13 @@
 		
         <!-- Testing  -->
         <!-- //////////////////////////////////////////////////////// -->
-		<dependency>
-			<groupId>org.junit.platform</groupId>
-			<artifactId>junit-platform-runner</artifactId>
-			<version>1.7.0</version>
-			<scope>test</scope>
-		</dependency>
+        <!-- run package where tests are kept 'debug as'- JUnit Test  -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
 		<!--  ////////////////////////////////////////////////////// -->
 
 
@@ -117,6 +118,10 @@
 					<version>2.8.2</version>
 				</plugin>
 				
+				<!-- Jasmine Testing  -->
+				<!-- //////////////////////////////////////////////// -->
+				<!--  ctrl-alt-t for terminal-->
+				<!--  click on pom file - type (mvn jasmine:bdd) in terminal , goto http://localhost:8234-->	
 				<plugin>
 					<groupId>com.github.searls</groupId>
 					<artifactId>jasmine-maven-plugin</artifactId>
@@ -127,8 +132,13 @@
 								<goal>test</goal>
 							</goals>
 						</execution>
-					</executions>
+						</executions>
+						<configuration>
+					<jsSrcDir>src/main/webapp/resources/javascript</jsSrcDir>
+					<jsTestSrcDir>src/test/javascript</jsTestSrcDir>
+				</configuration>
 				</plugin>
+				<!-- ///////////////////////////////////////////////// -->
 				
 			</plugins>
 		</pluginManagement>

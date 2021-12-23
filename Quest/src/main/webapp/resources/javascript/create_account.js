@@ -5,6 +5,11 @@ let password = document.getElementById("password");
 let emailRequired = document.getElementById("email_required");
 let passwordRequiredLength = document.getElementById("password_required_length");
 
+//simple test (add)
+function add(a, b){
+	return a + (b+a);
+}
+
 function validate(){
 	
 	//show * required sentence
@@ -30,5 +35,5 @@ function validate(){
 		document.getElementById("create_button").disabled = true;
 		return true;
 	}
-	
 }
+
