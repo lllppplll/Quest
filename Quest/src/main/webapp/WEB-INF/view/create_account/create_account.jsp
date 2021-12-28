@@ -17,13 +17,13 @@
 
 	<a href="./">Home</a>
 
-	<form:form  onsubmit="return validate()" action="create_account_submit" modelAttribute="createAccountDTO" method="POST">
+	<form:form  onsubmit="return validate(document.getElementById('email').value.trim(), document.getElementById('password').value.trim().length )" action="create_account_submit" modelAttribute="createAccountDTO" method="POST">
 		<table>
 			<tr>
 				<td><form:input id="email" placeholder="Email" path="email" /></td>
 			</tr>
 			<tr>
-				<td><span id="email_required">* Email required</span>
+				<td><span id="email_required">* Email required js</span>
 				    <form:errors class="email_error" path="email" />
 				</td>			
 			</tr>
@@ -31,12 +31,12 @@
 				<td><form:password id="password" placeholder="Password" path="password" /></td>
 			</tr>
 			<tr>
-				<td><span id="password_required_length">* Password must be 8 - 15 characters</span>
+				<td><span id="password_required_length">* Password must be 8 - 15 characters js</span>
 				    <form:errors class="password_length_error" path="password" />
 				</td>
 			</tr>
 			<tr>
-				<td><input type="submit" value="Submit" /></td>
+				<td><input id="create_button" type="submit" value="Submit" /></td>
 			</tr>
 		</table>
 	</form:form>
