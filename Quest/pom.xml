@@ -121,7 +121,8 @@
 				<!-- Jasmine Testing  -->
 				<!-- //////////////////////////////////////////////// -->
 				<!--  ctrl-alt-t for terminal-->
-				<!--  click on pom file - type (mvn jasmine:bdd) in terminal , goto http://localhost:8234-->	
+				<!--  type cd "project pathname" -->
+				<!--  type cd \Users\oneph\git\Quest\Quest (mvn jasmine:bdd) in terminal , goto http://localhost:8234-->	
 				<plugin>
 					<groupId>com.github.searls</groupId>
 					<artifactId>jasmine-maven-plugin</artifactId>

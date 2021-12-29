@@ -31,14 +31,10 @@ public class CreateAccountController {
 	@RequestMapping("/create_account_submit")
 	public String CreateAccountSave(@Valid @ModelAttribute("createAccountDTO") CreateAccountDTO userData, BindingResult result) {
 
-//      If input fields requirements are not met go back to create account page, displaying errors
-		if(result.hasErrors()) {
-			return "create_account/create_account";
-		}
-		
-//		Saves user input details in database
-		serviceI.SaveCreateAccount(userData);
-		
-		return "home";
+//      Check input fields requirements are met
+		String isValid = serviceI.isValid(result.hasErrors(), userData);
+		System.out.println(result);
+		System.out.println(result.hasErrors());
+		return isValid;
 	}
 }
