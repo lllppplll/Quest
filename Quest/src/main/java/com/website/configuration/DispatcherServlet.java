@@ -13,7 +13,7 @@ public class DispatcherServlet extends AbstractAnnotationConfigDispatcherServlet
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
 		// TODO Auto-generated method stub
-		Class arr[] = {ViewResolverConfiguration.class};
+		Class<?> arr[] = {ViewResolverConfiguration.class};
 		return arr;
 	}
 

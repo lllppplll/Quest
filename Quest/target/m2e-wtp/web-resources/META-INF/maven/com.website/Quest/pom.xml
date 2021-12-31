@@ -80,6 +80,36 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+        <!-- Junit Mocks -->
+        <dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>3.8.0</version>
+			<!-- <scope>test</scope> -->
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<version>3.8.0</version>
+			<!-- <scope>compile</scope> -->
+		</dependency>
+        <!-- database Testing -->
+        <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>5.2.15.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>2.3.9.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>2.3.2</version>
+			<scope>test</scope>
+		</dependency>
 		<!--  ////////////////////////////////////////////////////// -->
 
 

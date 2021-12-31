@@ -1,25 +1,30 @@
 package com.website.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.website.dto.CreateAccountDTO;
-import com.website.service.ServiceI;
+import com.website.service.CreateAccountServiceI;
 
 @Controller
 public class CreateAccountController {
 	
-	@Autowired
-	private ServiceI serviceI;
+	@Autowired	
+	private CreateAccountServiceI createAccountServiceI;
+	
+	//Constructor - Empty
+	public CreateAccountController() {
+	}
+
+	//Constructor
+	public CreateAccountController(CreateAccountServiceI createAccountServiceI) {
+		this.createAccountServiceI = createAccountServiceI;
+	}	
 
 //  CreateAccountDTO gets model data and puts it in "createAccountDTO".
 //  This goes to create_account page where the data can be used in the <form>.
@@ -28,13 +33,18 @@ public class CreateAccountController {
 		return "create_account/create_account";
 	}
 
+
 	@RequestMapping("/create_account_submit")
 	public String CreateAccountSave(@Valid @ModelAttribute("createAccountDTO") CreateAccountDTO userData, BindingResult result) {
 
 //      Check input fields requirements are met
-		String isValid = serviceI.isValid(result.hasErrors(), userData);
-		System.out.println(result);
-		System.out.println(result.hasErrors());
+//		String isValid = createAccountServiceI.isValid(result.hasErrors(), userData);
+		String isValid = createAccountServiceI.isValid(result.hasErrors());
+//		String isValid = result.hasErrors() ? "home" : "create_account/create_account";
+		createAccountServiceI.SaveCreateAccountDetails(userData, isValid);
+
 		return isValid;
 	}
+
+
 }
