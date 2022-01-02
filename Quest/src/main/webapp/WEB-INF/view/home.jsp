@@ -15,7 +15,7 @@
 <body>
 
 <h1>Quest</h1>
-<a href="create_account_page" >Create Account</a>
+<a href="sign_in__page" >Sign In</a>
 
 <script src="URL/javascript/home.js"></script>
 </body>

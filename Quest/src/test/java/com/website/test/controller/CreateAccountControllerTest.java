@@ -59,29 +59,6 @@ public class CreateAccountControllerTest {
 
 	}
 	
-//	@Test
-//	void CreateAccountSaveTrue() throws Exception {
-//
-//		// arrange
-//		CreateAccountDTO userData = new CreateAccountDTO();
-//		
-//		CreateAccountDAOImpl dao = mock(CreateAccountDAOImpl.class);
-//		CreateAccountServiceImpl service = new CreateAccountServiceImpl(dao);
-//		CreateAccountController test = new CreateAccountController(service);
-//		
-//		BindingResult result = mock(BindingResult.class);
-//		when(result.hasErrors()).thenReturn(true);
-//
-//		// act
-//		doNothing().when(dao);
-//		String valid = test.CreateAccountSave(userData, result);
-//
-//		// assert
-//		assertEquals(valid, "home");
-//		//verify(test, times(1)).CreateAccountSave(userData, result);
-//
-//	}
-	
 
 	@Nested
 	class innerTest {

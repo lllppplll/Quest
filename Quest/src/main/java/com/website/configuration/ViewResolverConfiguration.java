@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -38,14 +40,14 @@ public class ViewResolverConfiguration implements WebMvcConfigurer {
 	
 	//Template for connecting to database
 	@Bean
-	JdbcTemplate jdbcTemplate() {	
+	public JdbcTemplate jdbcTemplate() {	
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());	
 		return jdbcTemplate;
 	}
 	
 	//Database Connection
 	@Bean
-	DataSource dataSource() {
+	public DataSource dataSource() {
 		//In development
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setUrl("jdbc:sqlserver://DESKTOP-D199DEA:1433;databaseName=Quest;integratedSecurity=true;");
@@ -65,6 +67,12 @@ public class ViewResolverConfiguration implements WebMvcConfigurer {
 	@Bean
 	public PlatformTransactionManager txManager() {
 		return new DataSourceTransactionManager(dataSource());
+	}
+	
+	//Password Encryption - on create account
+	@Bean
+	public PasswordEncoder getPasswordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 
 }
