@@ -17,7 +17,7 @@
 
 	<a href="./">Home</a>
 
-	<form:form   action="create_account_submit" modelAttribute="createAccountDTO" method="POST">
+	<form:form   onsubmit="return validate(document.getElementById('email').value.trim(), document.getElementById('password').value.trim().length)" action="create_account_submit" modelAttribute="createAccountDTO" method="POST">
 		<table>
 			<tr>
 				<td><form:input id="email" placeholder="Email" path="email" /></td>
@@ -40,7 +40,7 @@
 			</tr>
 		</table>
 	</form:form>
-	
+
 <script src="URL/javascript/create_account.js"></script>
 </body>
 </html>

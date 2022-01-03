@@ -44,7 +44,7 @@ class CreateAccountDAOImplTest {
 		CreateAccountDTO dbData = database.getUserDetails();
 		assertEquals(createAccount.getEmail(), dbData.getEmail());
 		assertEquals(createAccount.getPassword(), dbData.getPassword());
-		assertEquals(createAccount.getRole(), dbData.getRole());
+		assertEquals(createAccount.getRoles(), dbData.getRoles());
 		assertEquals(createAccount.getEnabled(), dbData.getEnabled());
 		
 		// Close Database Connection

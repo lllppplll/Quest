@@ -30,7 +30,7 @@ public class CreateAccountServiceImplTest {
 		String output = test.isValid(result);
 		
 		// assert
-		assertEquals(output, "home");
+		assertEquals(output, "create_account/create_account");
 	}
 	
 	@Test
@@ -44,7 +44,7 @@ public class CreateAccountServiceImplTest {
 		String output = test.isValid(result);
 		
 		// assert
-		assertEquals(output, "create_account/create_account");
+		assertEquals(output, "home");
 	}
 	
 	@Test
@@ -135,7 +135,7 @@ public class CreateAccountServiceImplTest {
 			CreateAccountDTO dbData = database.getUserDetails();
 			assertEquals(userData.getEmail(), dbData.getEmail());
 			assertEquals(userData.getPassword(), dbData.getPassword());
-			assertEquals(userData.getRole(), dbData.getRole());
+			assertEquals(userData.getRoles(), dbData.getRoles());
 			assertEquals(userData.getEnabled(), dbData.getEnabled());
 			
 		}

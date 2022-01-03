@@ -81,8 +81,8 @@ public class DatabaseCreate {
 	        info.setId(rs.getInt(1));
 	        info.setEmail(rs.getString(2));
 	        info.setPassword(rs.getString(3));
-	        info.setRole(rs.getString(4));
-	        info.setEnabled(rs.getInt(5));
+	        info.setRoles(rs.getString(4));
+	        info.setEnabled(rs.getBoolean(5));
 
 	        System.out.println(info);        
 			return info;

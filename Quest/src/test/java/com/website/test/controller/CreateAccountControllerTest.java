@@ -111,7 +111,7 @@ public class CreateAccountControllerTest {
 			CreateAccountDTO dbData = database.getUserDetails();
 			assertEquals(userData.getEmail(), dbData.getEmail());
 			assertEquals(userData.getPassword(), dbData.getPassword());
-			assertEquals(userData.getRole(), dbData.getRole());
+			assertEquals(userData.getRoles(), dbData.getRoles());
 			assertEquals(userData.getEnabled(), dbData.getEnabled());
 		}
 		

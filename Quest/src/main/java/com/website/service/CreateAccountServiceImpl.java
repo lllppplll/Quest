@@ -28,7 +28,7 @@ public class CreateAccountServiceImpl implements CreateAccountServiceI {
 	@Override
 	public String isValid(boolean result) {
 
-		String bool = result ? "home" : "create_account/create_account";
+		String bool = result ? "create_account/create_account" : "home";
 		return bool;
 		
 	}
@@ -44,36 +44,4 @@ public class CreateAccountServiceImpl implements CreateAccountServiceI {
 
 			dao.SaveCreateAccount(userData); }
 		}
-
-//	@Override
-//	public String isValid(boolean result, CreateAccountDTO userData) {
-//		
-//		boolean Inputs = InputFieldErrors(result);
-//		
-//		return Form(Inputs, userData);
-//	}
-//	
-//	
-//	@Override
-//	public boolean InputFieldErrors(boolean result) {
-//		
-//		boolean bool = result ? false : true;
-//		return bool;	
-//}
-//
-//	@Override
-//	public String Form(boolean input, CreateAccountDTO userData) {
-//			
-//		if(input) {
-//			
-//			//Save User Data
-//			dao.SaveCreateAccount(userData);
-//			
-//			return "home";			
-//		}
-//		else{
-//			return "create_account/create_account";
-//		}
-//	}
-
 }

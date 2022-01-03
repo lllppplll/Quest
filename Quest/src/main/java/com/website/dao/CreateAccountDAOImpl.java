@@ -25,9 +25,9 @@ public class CreateAccountDAOImpl implements CreateAccountDAOI {
 	public void SaveCreateAccount(CreateAccountDTO userData) {
 		
         //Connecting and saving data in database
-		Object[] sqlParameters1 = {userData.getEmail(), userData.getPassword(), userData.getRole(), userData.getEnabled()};
+		Object[] sqlParameters1 = {userData.getEmail(), userData.getPassword(), userData.getRoles(), userData.getEnabled()};
 		//Prepared SQL statement
-		String sql1 = "INSERT INTO Users(email, password, role, enabled) VALUES ( ?,?,?,? )";
+		String sql1 = "INSERT INTO Users(email, password, roles, enabled) VALUES ( ?,?,?,? )";
 	    jdbcTemplate.update(sql1, sqlParameters1);
 
 	}	

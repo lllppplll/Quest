@@ -1,7 +1,5 @@
 package com.website.dto;
 
-import java.sql.Date;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -15,8 +13,9 @@ public class CreateAccountDTO {
 	@Size(min = 8, max = 15, message = "* Password must be 8 - 15 characters")	
 	private String password;
 	
-	private String role = "ROLE_USER";
-	private int enabled = 0;
+	private String roles = "ROLES_USER";
+	
+	private boolean enabled = false;
 	
 	
 	public int getId() {
@@ -43,25 +42,25 @@ public class CreateAccountDTO {
 		this.password = password;
 	}
 
-	public String getRole() {
-		return role;
+	public String getRoles() {
+		return roles;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setRoles(String roles) {
+		this.roles = roles;
 	}
 
-	public int getEnabled() {
+	public boolean getEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(int b) {
+	public void setEnabled(boolean b) {
 		this.enabled = b;
 	}
 
 	@Override
 	public String toString() {
-		return "CreateAccountDTO [id=" + id + ", email=" + email + ", password=" + password + ", role=" + role
+		return "CreateAccountDTO [id=" + id + ", email=" + email + ", password=" + password + ", roles=" + roles
 				+ ", enabled=" + enabled + "]";
 	}
 	

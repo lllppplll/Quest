@@ -28,7 +28,7 @@ public class CreateAccountController {
 
 //  CreateAccountDTO gets model data and puts it in "createAccountDTO".
 //  This goes to create_account page where the data can be used in the <form>.
-	@RequestMapping("/create_account_page")
+	@RequestMapping("/create_account")
 	public String CreateAccounPage(@ModelAttribute("createAccountDTO") CreateAccountDTO createAccountDTO) {
 		return "create_account/create_account";
 	}

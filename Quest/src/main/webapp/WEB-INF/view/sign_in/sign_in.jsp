@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +15,7 @@
 
 <a class="title" href="./">Home</a>
 
-<a class="create_account" href="create_account_page" >Create an account</a>
+<a class="create_account" href="create_account" >Create an account</a>
 
 <form:form  action="process_login" method="POST" >
 
