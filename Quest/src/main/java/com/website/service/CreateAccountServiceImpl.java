@@ -5,13 +5,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.website.dao.CreateAccountDAOI;
+import com.website.dao.CreateAccountDAOImpl;
 import com.website.dto.CreateAccountDTO;
 
 @Service
 public class CreateAccountServiceImpl implements CreateAccountServiceI {
 	
 	@Autowired
-	private PasswordEncoder bcryptPasswordEncoded;
+	private PasswordEncoder bcrypt;
 
 	@Autowired
 	private CreateAccountDAOI dao;
@@ -21,8 +22,9 @@ public class CreateAccountServiceImpl implements CreateAccountServiceI {
 	}
 
 	// Constructor
-	public CreateAccountServiceImpl(CreateAccountDAOI dao) {
+	public CreateAccountServiceImpl(CreateAccountDAOI dao, PasswordEncoder bcrypt) {
 		this.dao = dao;
+		this.bcrypt = bcrypt;
 	}
 
 	@Override
@@ -38,10 +40,16 @@ public class CreateAccountServiceImpl implements CreateAccountServiceI {
 	public void SaveCreateAccountDetails(CreateAccountDTO userData,String isValid) {
 		
 		if(isValid == "home") { 
-			//Encode password before saving in database
-			String encodedPassword = bcryptPasswordEncoded.encode(userData.getPassword());
-			userData.setPassword(encodedPassword);
-
+			
+			PasswordEncoding(userData);
+			
 			dao.SaveCreateAccount(userData); }
 		}
+	
+	@Override
+	public void PasswordEncoding(CreateAccountDTO userData) {
+		//Encode password before saving in database
+		String encodedPassword = bcrypt.encode(userData.getPassword());
+		userData.setPassword(encodedPassword);
+	}
 }

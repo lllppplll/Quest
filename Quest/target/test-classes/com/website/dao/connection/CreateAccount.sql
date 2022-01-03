@@ -3,6 +3,6 @@ Users (
   id int,
   email varchar(255),
   password varchar(255),
-  role varchar(255),
-  enabled int,
+  roles varchar(255),
+  enabled boolean,
 );

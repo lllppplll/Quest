@@ -1,5 +1,6 @@
 package com.website.test.service;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -10,57 +11,82 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.website.dao.CreateAccountDAOImpl;
 import com.website.dao.connection.DataSource;
 import com.website.dao.connection.DatabaseCreate;
 import com.website.dto.CreateAccountDTO;
+import com.website.service.CreateAccountServiceI;
 import com.website.service.CreateAccountServiceImpl;
 
 public class CreateAccountServiceImplTest {
+	
+	private CreateAccountDAOImpl daoMock;
+	private CreateAccountServiceImpl serviceDaoMock;
+	private CreateAccountServiceImpl service;
+	private CreateAccountDTO userData;
+	private String noErrors = "home";
+	private String hasErrors = "create_account/create_account";
+	
+	private String createSQL = "src/test/java/com/website/dao/connection/CreateAccount.sql";
+	private String injectSQL = "";
+	private String deleteSQL = "src/test/java/com/website/dao/connection/CreateAccountDelete.sql";
+	
+	private PasswordEncoder bcrypt;
+//	private String bCrypt;
+	
+	@BeforeEach
+	void setUp() throws Exception {
+		//Password Encoder
+		bcrypt = new BCryptPasswordEncoder();
+		//Mock DAO
+		daoMock = mock(CreateAccountDAOImpl.class);
+		serviceDaoMock = new CreateAccountServiceImpl(daoMock, bcrypt);
+		//Call service methods
+		service = new CreateAccountServiceImpl();
+		//User Data
+		userData = new CreateAccountDTO();
+		
+	}
 	
 	@Test
 	void isValidNoErrors() {
 		
 		// arrange
-		CreateAccountServiceImpl test = new CreateAccountServiceImpl();
 		boolean result = true;
 		
 		// act
-		String output = test.isValid(result);
+		String output = service.isValid(result);
 		
 		// assert
-		assertEquals(output, "create_account/create_account");
+		assertEquals(output, hasErrors);
 	}
 	
 	@Test
 	void isValidHasErrors() {
 		
-		// arrange
-		CreateAccountServiceImpl test = new CreateAccountServiceImpl();
+		// arrange	
 		boolean result = false;
 		
 		// act
-		String output = test.isValid(result);
+		String output = service.isValid(result);
 		
 		// assert
-		assertEquals(output, "home");
+		assertEquals(output, noErrors);
 	}
 	
 	@Test
-	void SaveCreateAccount() throws Exception {
+	void SaveCreateAccountCalledWhenNoErrors() throws Exception {
 
 		// arrange - mock
-		CreateAccountDAOImpl daoMock = mock(CreateAccountDAOImpl.class);
-		CreateAccountServiceImpl test = new CreateAccountServiceImpl(daoMock);
-		//user details
-		CreateAccountDTO userData = new CreateAccountDTO();
 		userData.setEmail("email_user");
 		userData.setPassword("password_user");
-		String isValid = "home";
+		
 	
 		// act
-		test.SaveCreateAccountDetails(userData, isValid);
+		serviceDaoMock.SaveCreateAccountDetails(userData, noErrors);
 		
 		// assert
 		verify(daoMock, times(1)).SaveCreateAccount(userData);
@@ -68,24 +94,48 @@ public class CreateAccountServiceImplTest {
 	}
 	
 	@Test
-	void SaveCreateAccountNull() throws Exception {
+	void NoSaveCreateAccountCalledWhenHasErrors() throws Exception {
 
 		// arrange - mock
-		CreateAccountDAOImpl daoMock = mock(CreateAccountDAOImpl.class);
-		CreateAccountServiceImpl test = new CreateAccountServiceImpl(daoMock);
-		//user details
-		CreateAccountDTO userData = new CreateAccountDTO();
 		userData.setEmail("email_user");
 		userData.setPassword("password_user");
-		String isValid = "create_account/create_account";
 	
 		// act
-		test.SaveCreateAccountDetails(userData, isValid);
+		serviceDaoMock.SaveCreateAccountDetails(userData, hasErrors);
 		
 		// assert
 		verify(daoMock, times(0)).SaveCreateAccount(userData);
 		
 	}
+	
+	@Test
+	void checkPasswordIsEncoded() throws Exception {
+
+		// arrange
+		//userData.setEmail("email_user");
+		userData.setPassword("password_user");
+	
+		// act
+		serviceDaoMock.PasswordEncoding(userData);
+		// assert
+		assertNotEquals("password_user", userData.getPassword());
+	}
+	
+	@Test
+	void checkPasswordAfterEncodedThroughMethodIsSameAsEncodedPasswordThroughBCrypt() throws Exception {
+
+		// arrange
+		userData.setPassword("password_user");
+	
+		// act
+		serviceDaoMock.PasswordEncoding(userData);
+		String password = userData.getPassword();
+		
+		// assert
+		assertEquals(bcrypt.matches("password_user", password), true);
+	}
+	
+	
 
 	@Nested
 	class innerTest {
@@ -103,9 +153,9 @@ public class CreateAccountServiceImplTest {
 			JdbcTemplate jdbc = data.jdbcDatasource();
 			
 			dao = new CreateAccountDAOImpl(jdbc);
-			dataUser = new CreateAccountServiceImpl(dao);
+			dataUser = new CreateAccountServiceImpl(dao, bcrypt);
 			//Set up database
-			database.db("src/test/java/com/website/dao/connection/CreateAccount.sql", "");
+			database.db(createSQL, injectSQL);
 
 			userData = new CreateAccountDTO();
 			//
@@ -114,8 +164,7 @@ public class CreateAccountServiceImplTest {
 		@AfterEach
 		void tearDown() throws Exception {
 			//Call database and delete last Insert
-			database.db("src/test/java/com/website/dao/connection/CreateAccount.sql", 
-					"src/test/java/com/website/dao/connection/CreateAccountDelete.sql");
+			database.db(createSQL, deleteSQL);
 			// Close Database Connection
 			database.close_connection();
 			}
@@ -140,165 +189,4 @@ public class CreateAccountServiceImplTest {
 			
 		}
 	}
-	
-	
-//	@Test
-//	void InputFieldErrorsHasErrors() {
-//		
-//		// arrange
-//		CreateAccountServiceImpl test = new CreateAccountServiceImpl();
-//		boolean result = true;
-//		
-//		// act
-//		boolean output = test.InputFieldErrors(result);
-//		
-//		// assert
-//		assertEquals(output, false);
-//	}
-//	
-//	@Test
-//	void InputFieldErrorsNoErrors() {
-//		
-//		// arrange
-//		CreateAccountServiceImpl test = new CreateAccountServiceImpl();
-//		boolean result = false;
-//		
-//		// act
-//		boolean output = test.InputFieldErrors(result);
-//		
-//		// assert
-//		assertEquals(output, true);
-//	}
-//	
-//	@Test
-//	void FormIsValid() {
-//		
-//		// arrange
-//		CreateAccountDAOImpl daoMock = mock(CreateAccountDAOImpl.class);
-//		CreateAccountServiceImpl test = new CreateAccountServiceImpl(daoMock);
-//		CreateAccountDTO userData = new CreateAccountDTO();
-//		boolean result = true;
-//		
-//		// act
-//		doNothing().when(daoMock);
-//		String output = test.Form(result, userData);
-//		
-//		// assert
-//		assertEquals(output, "home");
-//	}
-//	
-//	@Test
-//	void FormisNotValid() {
-//		
-//		// arrange
-//		CreateAccountDAOImpl daoMock = mock(CreateAccountDAOImpl.class);
-//		CreateAccountServiceImpl test = new CreateAccountServiceImpl(daoMock);
-//		CreateAccountDTO userData = new CreateAccountDTO();
-//		boolean result = false;
-//		
-//		// act
-//		doNothing().when(daoMock);
-//		String output = test.Form(result, userData);
-//		
-//		// assert
-//		assertEquals(output, "create_account/create_account");
-//	}
-//	
-//	@Nested
-//	class innerTest {
-//		
-//		private DatabaseCreate database;
-//		private CreateAccountServiceImpl dataUser;
-//		private CreateAccountDTO userData;
-//		
-//		@BeforeEach
-//		void setUp() throws Exception {
-//			
-//			database = new DatabaseCreate();
-//			DataSource 	data = new DataSource();
-//			JdbcTemplate jdbc = data.jdbcDatasource();
-//			
-//			CreateAccountDAOImpl dao = new CreateAccountDAOImpl(jdbc);
-//			dataUser = new CreateAccountServiceImpl(dao);
-//			//Set up database
-//			database.db("src/test/java/com/website/dao/connection/CreateAccount.sql", "");
-//
-//			userData = new CreateAccountDTO();
-//			//
-//		}
-//		
-//		@AfterEach
-//		void tearDown() throws Exception {
-//			//Call database and delete last Insert
-//			database.db("src/test/java/com/website/dao/connection/CreateAccount.sql", 
-//					"src/test/java/com/website/dao/connection/CreateAccountDelete.sql");
-//			// Close Database Connection
-//			database.close_connection();
-//			}
-//		
-//	@Test
-//	void SaveCreateAccountDAO() throws Exception {
-//
-//		// arrange
-//		userData.setEmail("email");
-//		userData.setPassword("password");
-//	
-//		// act - call repository
-//		dataUser.Form(true, userData);
-//		
-//		// assert - data in database, same as user input
-//		CreateAccountDTO dbData = database.getUserDetails();
-//		assertEquals(userData.getEmail(), dbData.getEmail());
-//		assertEquals(userData.getPassword(), dbData.getPassword());
-//		assertEquals(userData.getRole(), dbData.getRole());
-//		assertEquals(userData.getEnabled(), dbData.getEnabled());
-//		
-//	}
-//	
-//	@Test
-//	void isValidNoErrors_e2eTest() throws Exception {
-//
-//		// arrange
-//		userData.setEmail("email user");
-//		userData.setPassword("password user");
-//	
-//		// act - no errors
-//		dataUser.isValid(false, userData);
-//		
-//		// assert - data in database, same as user input
-//		CreateAccountDTO dbData = database.getUserDetails();
-//		assertEquals(userData.getEmail(), dbData.getEmail());
-//		assertEquals(userData.getPassword(), dbData.getPassword());
-//		assertEquals(userData.getRole(), dbData.getRole());
-//		assertEquals(userData.getEnabled(), dbData.getEnabled());
-//	}	
-//	}
-//	
-//	@Test
-//	void isValidHasErrors_e2eTest() throws Exception {
-//
-//		// arrange
-//		CreateAccountServiceImpl test = new CreateAccountServiceImpl();
-//		CreateAccountDTO userData = new CreateAccountDTO();
-//	
-//		// act 
-//		
-//		// assert
-//		assertEquals(test.isValid(true, userData), "create_account/create_account");
-//	}
-//	
-//	@Test
-//	void isValidHasNoErrors_e2eTest() throws Exception {
-//
-//		// arrange
-//		CreateAccountDAOImpl daoMock = mock(CreateAccountDAOImpl.class);
-//		CreateAccountServiceImpl test = new CreateAccountServiceImpl(daoMock);
-//		CreateAccountDTO userData = new CreateAccountDTO();
-//	
-//		// act 
-//		doNothing().when(daoMock);
-//		// assert
-//		assertEquals(test.isValid(false, userData), "home");
-//	}
-
 }

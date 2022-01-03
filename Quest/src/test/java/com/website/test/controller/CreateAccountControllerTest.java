@@ -77,7 +77,7 @@ public class CreateAccountControllerTest {
 			JdbcTemplate jdbc = data.jdbcDatasource();
 
 			dao = new CreateAccountDAOImpl(jdbc);
-			service = new CreateAccountServiceImpl(dao);
+			//service = new CreateAccountServiceImpl(dao);
 			test = new CreateAccountController(service);
 			// Set up database
 			database.db("src/test/java/com/website/dao/connection/CreateAccount.sql", "");

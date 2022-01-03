@@ -13,5 +13,6 @@ public interface CreateAccountServiceI {
 //	String Form(boolean input, CreateAccountDTO userData);
 	//Save user details
 	void SaveCreateAccountDetails(CreateAccountDTO userData, String isValid);
+	void PasswordEncoding(CreateAccountDTO userData);
 
 }
