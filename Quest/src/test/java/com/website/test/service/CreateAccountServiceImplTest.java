@@ -18,7 +18,6 @@ import com.website.dao.CreateAccountDAOImpl;
 import com.website.dao.connection.DataSource;
 import com.website.dao.connection.DatabaseCreate;
 import com.website.dto.CreateAccountDTO;
-import com.website.service.CreateAccountServiceI;
 import com.website.service.CreateAccountServiceImpl;
 
 public class CreateAccountServiceImplTest {
@@ -27,7 +26,7 @@ public class CreateAccountServiceImplTest {
 	private CreateAccountServiceImpl serviceDaoMock;
 	private CreateAccountServiceImpl service;
 	private CreateAccountDTO userData;
-	private String noErrors = "home";
+	private String noErrors = "create_account/create_account_verify";
 	private String hasErrors = "create_account/create_account";
 	
 	private String createSQL = "src/test/java/com/website/dao/connection/CreateAccount.sql";
@@ -86,7 +85,7 @@ public class CreateAccountServiceImplTest {
 		
 	
 		// act
-		serviceDaoMock.SaveCreateAccountDetails(userData, noErrors);
+		serviceDaoMock.SaveCreateAccountDetails(userData, null, noErrors);
 		
 		// assert
 		verify(daoMock, times(1)).SaveCreateAccount(userData);
@@ -101,7 +100,7 @@ public class CreateAccountServiceImplTest {
 		userData.setPassword("password_user");
 	
 		// act
-		serviceDaoMock.SaveCreateAccountDetails(userData, hasErrors);
+		serviceDaoMock.SaveCreateAccountDetails(userData, null, hasErrors);
 		
 		// assert
 		verify(daoMock, times(0)).SaveCreateAccount(userData);
@@ -175,10 +174,9 @@ public class CreateAccountServiceImplTest {
 			// arrange
 			userData.setEmail("email_user");
 			userData.setPassword("password_user");
-			String isValid = "home";
 		
 			// act
-			dataUser.SaveCreateAccountDetails(userData, isValid);
+			dataUser.SaveCreateAccountDetails(userData, null, noErrors);
 			
 			// assert
 			CreateAccountDTO dbData = database.getUserDetails();

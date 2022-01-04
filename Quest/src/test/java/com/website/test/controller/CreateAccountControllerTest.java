@@ -29,6 +29,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.MapBindingResult;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.request.WebRequest;
 
 import com.website.controller.CreateAccountController;
 import com.website.dao.CreateAccountDAOImpl;
@@ -101,11 +102,13 @@ public class CreateAccountControllerTest {
 			// arrange
 			BindingResult result = mock(BindingResult.class);
 			when(result.hasErrors()).thenReturn(true);
+			//WebRequest request = mock(WebRequest.class);
+			//when(request.getContextPath()).thenReturn("");
 			userData.setEmail("email_user");
 			userData.setPassword("password_user");
 
 			// act
-			test.CreateAccountSave(userData, result);
+			test.CreateAccountSave(userData, result, null);
 
 			// assert - database
 			CreateAccountDTO dbData = database.getUserDetails();
@@ -121,9 +124,11 @@ public class CreateAccountControllerTest {
 			// arrange
 			BindingResult result = mock(BindingResult.class);
 			when(result.hasErrors()).thenReturn(true);
+//			WebRequest request = mock(WebRequest.class);
+//			when(request.getContextPath()).thenReturn("");
 
 			// act
-			String valid = test.CreateAccountSave(userData, result);
+			String valid = test.CreateAccountSave(userData, result, null);
 
 			// assert
 			assertEquals(valid, "home");
@@ -136,9 +141,11 @@ public class CreateAccountControllerTest {
 			// arrange
 			BindingResult result = mock(BindingResult.class);
 			when(result.hasErrors()).thenReturn(false);
+//			WebRequest request = mock(WebRequest.class);
+//			when(request.getContextPath()).thenReturn("");
 
 			// act
-			String valid = test.CreateAccountSave(userData, result);
+			String valid = test.CreateAccountSave(userData, result, null);
 
 			// assert
 			assertEquals(valid, "create_account/create_account");

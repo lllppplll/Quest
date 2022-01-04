@@ -21,7 +21,7 @@
 <a class="sign_in" href="sign_in" >Sign In</a>
 
  <form:form action="logout" method="POST" class="nav_bar_sign_in" id="logoutLink_switch" >
- <a class="logout"  onclick="document.getElementById('logoutLink_switch').submit();" >Logout</a>
+ <a class="logout"  onclick="document.getElementById('logoutLink_switch').submit();" >Sign Out</a>
  </form:form>
 
 <script src="URL/javascript/home.js"></script>
