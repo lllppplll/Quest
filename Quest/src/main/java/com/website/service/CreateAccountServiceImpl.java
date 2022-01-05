@@ -19,7 +19,7 @@ public class CreateAccountServiceImpl implements CreateAccountServiceI {
 	private CreateAccountDAOI dao;
 	
 	@Autowired
-	private CreateAccountVerifyEmail verifyEmail;
+	private CreateAccountVerifyEmail verify;
 
 	// Constructor Empty
 	public CreateAccountServiceImpl() {
@@ -64,7 +64,7 @@ public class CreateAccountServiceImpl implements CreateAccountServiceI {
 
 	@Override
 	public void SendVerificationEmail(String email, String appURL) {
-			verifyEmail.SendEmail(email, appURL);
+			verify.SendEmail(email, appURL);
 	}
 
 	@Override

@@ -23,7 +23,7 @@
 
 <input type="password" class="password" placeholder="Password" name="password"  /><br/>
 
-<a class="forgotten_password" href="forgotten" >Forgotten Password</a><br/>
+<a class="forgotten_password" href="forgotten_password" >Forgotten Password</a><br/>
 
 <input class="submit_button" type="submit" value="Sign In"/>
 

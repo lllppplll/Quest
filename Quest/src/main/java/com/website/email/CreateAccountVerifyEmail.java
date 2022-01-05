@@ -21,7 +21,7 @@ import com.website.dto.CreateAccountTokenDTO;
 public class CreateAccountVerifyEmail {
 	
 	@Autowired
-	private CreateAccountDAOI verify;
+	private CreateAccountDAOI dao;
 	
 	@Autowired
 	private CreateAccountTokenDTO expiry;
@@ -32,7 +32,7 @@ public class CreateAccountVerifyEmail {
 		String token = UUID.randomUUID().toString();
 		
 		// save token in database
-		verify.saveToken(sendToEmail, token, expiry.calculateExpiryToken());
+		dao.saveToken(sendToEmail, token, expiry.calculateExpiryToken());
 		
 		Session session = EmailInformation();
 
