@@ -8,6 +8,7 @@
 <title>Account Created</title>
 </head>
 <body>
-<p>Your account has been activated. -Sign in button here-</p>
+<p>Your account has been activated.</p>
+<a class="sign_in" href="sign_in" >Sign In</a>
 </body>
 </html>

@@ -15,8 +15,6 @@
 
 <a class="title" href="./">Home</a>
 
-<a class="create_account" href="create_account" >Create an account</a>
-
 <form:form  action="process_login" method="POST" >
 
 <input class="email" placeholder="Email" name="username" />

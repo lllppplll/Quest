@@ -37,10 +37,10 @@ public class ForgottenPasswordController {
 	@RequestMapping("/forgotten_password_submit")
 	public String ForgottenPasswordProcess(ForgottenPasswordDTO forgottenPasswordDTO, WebRequest request) {
 		
-		service.sendEmail(forgottenPasswordDTO.getEmail(), request.getContextPath());
-		
+		service.sendEmail(forgottenPasswordDTO.getEmail(), request.getContextPath());	
 		return "forgotten_password/forgotten_password_reset";
 	}
+	
 	
 	//Save Token In Database
 	@RequestMapping("/reset")
