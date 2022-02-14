@@ -24,9 +24,7 @@ public class ForgottenPasswordController {
 	
 	@Autowired
 	ForgottenPasswordTokenDTO tokenDB;
-	
-	@Autowired
-	private PasswordEncoder bcrypt;
+
 	
 	@RequestMapping("/forgotten_password")
 	public String ForgottenPasswordPage(@ModelAttribute("forgottenPasswordDTO") ForgottenPasswordDTO forgottenPasswordDTO) {
@@ -41,67 +39,52 @@ public class ForgottenPasswordController {
 		return "forgotten_password/forgotten_password_reset";
 	}
 	
+	//change
 	
 	//Save Token In Database
 	@RequestMapping("/reset")
 	public String ForgottenPasswordReset(@ModelAttribute("forgottenPasswordNewDTO") ForgottenPasswordNewDTO forgottenPasswordNewDTO, 
 			@RequestParam("token") String token, Model model) {
 		
-		//service.sendEmail(forgottenPasswordDTO.getEmail(), request.getContextPath());
+		String isSuccess = service.checkToken(token, model);
+		return isSuccess;
 		
-		//Get Token From Database
-		tokenDB = service.getToken(token);
-		
-		//Check If Token Is Present
-		if (tokenDB == null) {  
-			return "forgotten_password/forgotten_password_denied";
-		}
-
-		//Get Email From Database
-		String email = tokenDB.getEmail();
-		model.addAttribute("email", email);
-		
-		//Get Date
-		Calendar calendar = Calendar.getInstance();
-
-		//Check If Email Is Not Expired
-		if ((tokenDB.getExpiryDate().getTime() - calendar.getTime().getTime()) <= 0) {
-			return "forgotten_password/forgotten_password_expired";
-		}
-
-		//Set Enabled In DTO
-		//forgottenPasswordDTO.setEnabled(true);
-		//Save Enabled In Database
-		//service.enableAccount(email, createAccountDTO.getEnabled());
-		
-		return "forgotten_password/forgotten_password_new";
+//		//service.sendEmail(forgottenPasswordDTO.getEmail(), request.getContextPath());
+//		
+//		//Get Token From Database
+//		tokenDB = service.getToken(token);
+//		
+//		//Check If Token Is Present
+//		if (tokenDB == null) {  
+//			return "forgotten_password/forgotten_password_denied";
+//		}
+//
+//		//Get Email From Database
+//		String email = tokenDB.getEmail();
+//		model.addAttribute("email", email);
+//		
+//		//Get Date
+//		Calendar calendar = Calendar.getInstance();
+//
+//		//Check If Email Is Not Expired
+//		if ((tokenDB.getExpiryDate().getTime() - calendar.getTime().getTime()) <= 0) {
+//			return "forgotten_password/forgotten_password_expired";
+//		}
+//
+//		//Set Enabled In DTO
+//		//forgottenPasswordDTO.setEnabled(true);
+//		//Save Enabled In Database
+//		//service.enableAccount(email, createAccountDTO.getEnabled());
+//		
+//		return "forgotten_password/forgotten_password_new";
 	}
 	
 	@RequestMapping("/saveNewPassword")
-	public String savePassword(ForgottenPasswordNewDTO forgottenPasswordNewDTO) {
+	public String savePassword(ForgottenPasswordNewDTO forgottenPasswordNewDTO, Model model) {
 		
-
-//	    //passwords match
-		boolean matches = forgottenPasswordNewDTO.getNewPassword().equals(forgottenPasswordNewDTO.getConfirmPassword());
-		//boolean matches = bcryptPasswordEncoded.matches(resetPasswordDTO.getNewPassword(), resetPasswordDTO.getConfirmPassword());
-	
-
-		 if(matches) {
-			//encode password
-			 String passwordEncoded = bcrypt.encode(forgottenPasswordNewDTO.getNewPassword());
-			//save new password in database
-			service.saveNewPassword(forgottenPasswordNewDTO.getEmail(), passwordEncoded);
-			
-		}
-		 
-		 //if not matches
-//		 if(!matches) {
-////			 model.addAttribute("isNotMatch", "true");
-//			 return "redirect:/resetPassword?token=" + resetPasswordDTO.getToken() + "&isnotmatch=1";
-//		 }
-		 
-		return "forgotten_password/forgotten_password_success";
-
+		//check if passwords match, save password
+		String isSuccess = service.checkNewPassword(forgottenPasswordNewDTO.getEmail(), forgottenPasswordNewDTO.getNewPassword(), forgottenPasswordNewDTO.getConfirmPassword(), forgottenPasswordNewDTO.getToken(), model);
+		return isSuccess;
 	}
 	
 	

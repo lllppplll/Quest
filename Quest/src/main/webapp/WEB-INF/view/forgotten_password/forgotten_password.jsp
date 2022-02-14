@@ -25,5 +25,7 @@
 <input class="boxes"  type="submit" value="Reset" />
 
 </form:form>
+
+<div>${tokenNotValid}</div>
 </body>
 </html>

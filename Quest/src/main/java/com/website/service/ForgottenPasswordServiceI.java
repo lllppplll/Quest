@@ -1,5 +1,7 @@
 package com.website.service;
 
+import org.springframework.ui.Model;
+
 import com.website.dto.ForgottenPasswordNewDTO;
 import com.website.dto.ForgottenPasswordTokenDTO;
 
@@ -10,8 +12,9 @@ public interface ForgottenPasswordServiceI {
 	//Save Token In Database
 	void saveToken(String email, String appURL);
 	//Get Token From Database
-	ForgottenPasswordTokenDTO getToken(String token);
+	String checkToken(String token, Model model);
 	//Save New Password In Database
-	void saveNewPassword(String email, String password);
+	String checkNewPassword(String email, String passwordNew, String passwordConfirm, String token, Model model);
+	
 	
 }

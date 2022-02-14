@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
@@ -14,6 +14,7 @@
 <title>Create Account</title>
 </head>
 <body>
+<h1>Create an Account</h1>
 
 	<a href="./">Home</a>
 
@@ -40,6 +41,8 @@
 			</tr>
 		</table>
 	</form:form>
+	<p>${returnMessage}</p>
+	<p>${isEmail}</p>
 
 <script src="URL/javascript/create_account.js"></script>
 </body>

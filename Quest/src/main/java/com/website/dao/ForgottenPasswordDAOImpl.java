@@ -29,7 +29,7 @@ public class ForgottenPasswordDAOImpl implements ForgottenPasswordDAOI{
 		
 		Object[] sqlParameter = {email, token, calculateExpiryToken};		
 		
-		String sql = "INSERT INTO NewPasswordTokens(email, token, expiryDate) VALUES ( ?,?,? )";
+		String sql = "INSERT INTO PasswordTokens(email, token, expiryDate) VALUES ( ?,?,? )";
 		
 	    jdbcTemplate.update(sql, sqlParameter);
 	    
@@ -38,7 +38,7 @@ public class ForgottenPasswordDAOImpl implements ForgottenPasswordDAOI{
 	@Override
 	public ForgottenPasswordTokenDTO getToken(String token) {
 		
-        String sql = "SELECT * FROM NewPasswordTokens WHERE token = ? ";
+        String sql = "SELECT * FROM PasswordTokens WHERE token = ? ";
 			
 		
         ForgottenPasswordTokenDTO getToken = jdbcTemplate.queryForObject(sql, new NewPasswordRowMapper(), token);
@@ -57,5 +57,16 @@ public class ForgottenPasswordDAOImpl implements ForgottenPasswordDAOI{
 	    jdbcTemplate.update(sql, sqlParameter);
 		
 	}
+
+//	@Override
+//	public void enableAccount(String email) {
+//		
+//		Object[] sqlParameter = {email};		
+//		
+//		String sql = "UPDATE Users Set enable = 1 WHERE email = ?";
+//		
+//	    jdbcTemplate.update(sql, sqlParameter);
+//		
+//	}
 
 }

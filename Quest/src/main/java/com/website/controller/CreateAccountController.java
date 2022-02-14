@@ -1,9 +1,15 @@
 package com.website.controller;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -32,27 +38,31 @@ public class CreateAccountController {
 //  This goes to create_account page where the data can be used in the <form>.
 	@RequestMapping("/create_account")
 	public String CreateAccounPage(@ModelAttribute("createAccountDTO") CreateAccountDTO createAccountDTO) {
+		
 		return "create_account/create_account";
 	}
 
 
 	@RequestMapping("/create_account_submit")
-	public String CreateAccountSave(@Valid @ModelAttribute("createAccountDTO") CreateAccountDTO userData, BindingResult result, WebRequest request) {
-
-//      Check input fields requirements are met
-		String isValid = service.isValid(result.hasErrors());
-//		String isValid = result.hasErrors() ? "home" : "create_account/create_account";
-		service.SaveCreateAccountDetails(userData, request.getContextPath(), isValid);
-
+	public String CreateAccountSave(@Valid @ModelAttribute("createAccountDTO") CreateAccountDTO userData, BindingResult result, WebRequest request, Model model) {
+		
+//      Check input fields requirements are met, and email does not exist
+		String isValid = service.isValid(result.hasErrors(), userData.getEmail(), userData, request.getContextPath(), model);
+		
+		//check email does not exist, save
+//		if(!result.hasErrors()) {
+//		service.SaveCreateAccountDetails(userData, request.getContextPath());
+//		}
+		
 		return isValid;
 	}
 	
 	//EMAIL CONFIRMATION
 		@GetMapping("/verify")
-		public String verify(@ModelAttribute("create_account_success") CreateAccountDTO createAccountDTO,
-				@RequestParam("token") String token) {
+		public String verify(@ModelAttribute("createAccountDTO") CreateAccountDTO createAccountDTO, @RequestParam("token") String token, Model model) {
 			
-			String isSuccess = service.CreateAccountSuccess(createAccountDTO, token);		
+			String isSuccess = service.CreateAccountSuccess(createAccountDTO, token, model);
+
 			return isSuccess;
 		}
 

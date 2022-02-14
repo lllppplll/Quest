@@ -26,7 +26,6 @@
  
  <a class="create_account" href="create_account" >Register</a>
 
-
 <script src="URL/javascript/home.js"></script>
 </body>
 </html>

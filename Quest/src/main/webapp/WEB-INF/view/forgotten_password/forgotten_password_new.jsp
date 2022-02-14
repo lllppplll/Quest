@@ -21,9 +21,12 @@
 <form:password id="password2" class="boxes"  placeholder="Confirm Password" path="confirmPassword"/>
 <br/>
 <form:input class="email" value="${email}" path="email"/>
+<form:input class="email" value="${token}" path="token"/>
 <!--  Submit-->
 <input class="boxes"  type="submit" value="Reset" />
 </form:form>
+
+<div>${passwordsNotMatch}</div>
 
 <%-- 
 

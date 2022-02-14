@@ -87,4 +87,11 @@ public class SecurityUserDTO implements UserDetails{
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "SecurityUserDTO [id=" + id + ", email=" + email + ", password=" + password + ", roles=" + roles
+				+ ", enabled=" + enabled + "]";
+	}
+	
+	
 }

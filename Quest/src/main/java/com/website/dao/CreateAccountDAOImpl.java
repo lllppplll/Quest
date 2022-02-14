@@ -3,6 +3,8 @@ package com.website.dao;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -50,11 +52,12 @@ public class CreateAccountDAOImpl implements CreateAccountDAOI {
 	@Override
 	public CreateAccountTokenDTO getToken(String token) {
 				
-        String sql = "SELECT * FROM VerificationTokens WHERE token = ? ";	
+        String sql = "SELECT * FROM VerificationTokens WHERE token = ?";	
+        //queryforobject does not except 0 rows or more than 1.
+        //if user types token value in url no columns are found resulting in an exception.
+        //dataAccessUtils will return null if 0 rows.  
+        return DataAccessUtils.singleResult(jdbcTemplate.query(sql, new EmailVerificationRowMapper(), token));
 		
-        CreateAccountTokenDTO getToken = jdbcTemplate.queryForObject(sql, new EmailVerificationRowMapper(), token);
-
-		return getToken;
 	}
 
 	@Override
@@ -67,5 +70,32 @@ public class CreateAccountDAOImpl implements CreateAccountDAOI {
 		    jdbcTemplate.update(sql, sqlParameter);
 		 
 		}
+
+	@Override
+	public int isEmail(String email) {
+		
+		String sql = "SELECT CASE WHEN EXISTS (SELECT * FROM Users WHERE email = ? )THEN CAST(1 AS BIT)ELSE CAST(0 AS BIT) END";
+
+        int user = jdbcTemplate.queryForObject(sql, Integer.class, email);
+		
+		return user;
+		
+	}
+
+	@Override
+	public void createAccountWithToken(String email, String password, String token, Date calculateExpiryToken) {
+        
+		//Connecting and saving data in database
+		Object[] sqlParameters1 = {email, password, "ROLES_USER", 0};
+		Object[] sqlParameter = {email, token, calculateExpiryToken};
+		
+		//Prepared SQL statement
+		String sql1 = "INSERT INTO Users(email, password, roles, enabled) VALUES ( ?,?,?,? )";
+		String sql = "INSERT INTO VerificationTokens(email, token, expiryDate) VALUES ( ?,?,? )";
+		
+		jdbcTemplate.update(sql1, sqlParameters1);
+	    jdbcTemplate.update(sql, sqlParameter);
+		
+	}
 	
 }

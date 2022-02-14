@@ -26,15 +26,33 @@ public class CreateAccountVerifyEmail {
 	@Autowired
 	private CreateAccountTokenDTO expiry;
 	
-	public void SendEmail(String sendToEmail, String appURL) {
+	public void SendEmail(String sendToEmail, String password, String appURL) {
 		
 		// create token
 		String token = UUID.randomUUID().toString();
 		
 		// save token in database
-		dao.saveToken(sendToEmail, token, expiry.calculateExpiryToken());
+		//dao.saveToken(sendToEmail, token, expiry.calculateExpiryToken());
+		dao.createAccountWithToken(sendToEmail, password, token, expiry.calculateExpiryToken());
 		
-		Session session = EmailInformation();
+		
+		String host = "smtp.aol.com";
+		final String username = "OnePhoenixF";
+		final String passwordEmail = "zzhbswgmljbifnjq";
+
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");// it’s optional in Mailtrap
+		props.put("mail.smtp.host", host);
+		props.put("mail.smtp.port", "587");// use one of the options in the SMTP settings tab in your Mailtrap Inbox
+
+		// Get the Session object.
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, passwordEmail);
+			}
+		});
+		
 
 		String url = appURL + "/verify?token=" + token;
 //		String url = "adventure.eu-west-2.elasticbeanstalk.com" + "/resetPassword?token=" + token;
@@ -66,28 +84,6 @@ public class CreateAccountVerifyEmail {
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}
-	}
-
-	
-	public Session EmailInformation() {
-		String host = "smtp.aol.com";
-		final String username = "OnePhoenixF";
-		final String password = "zinudongnfvwishx";
-
-		Properties props = new Properties();
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");// it’s optional in Mailtrap
-		props.put("mail.smtp.host", host);
-		props.put("mail.smtp.port", "587");// use one of the options in the SMTP settings tab in your Mailtrap Inbox
-
-		// Get the Session object.
-		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(username, password);
-			}
-		});
-		
-		return session;
 	}
 	
 }
