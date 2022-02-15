@@ -27,27 +27,27 @@ public class CreateAccountDAOImpl implements CreateAccountDAOI {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	@Override
-	public void SaveCreateAccount(CreateAccountDTO userData) {
-		
-        //Connecting and saving data in database
-		Object[] sqlParameters1 = {userData.getEmail(), userData.getPassword(), userData.getRoles(), userData.getEnabled()};
-		//Prepared SQL statement
-		String sql1 = "INSERT INTO Users(email, password, roles, enabled) VALUES ( ?,?,?,? )";
-	    jdbcTemplate.update(sql1, sqlParameters1);
-
-	}
-
-	@Override
-	public void saveToken(String email, String token, Date calculateExpiryToken) {
-		
-		Object[] sqlParameter = {email, token, calculateExpiryToken};		
-		
-		String sql = "INSERT INTO VerificationTokens(email, token, expiryDate) VALUES ( ?,?,? )";
-		
-	    jdbcTemplate.update(sql, sqlParameter);
-		
-	}
+//	@Override
+//	public void SaveCreateAccount(CreateAccountDTO userData) {
+//		
+//        //Connecting and saving data in database
+//		Object[] sqlParameters1 = {userData.getEmail(), userData.getPassword(), userData.getRoles(), userData.getEnabled()};
+//		//Prepared SQL statement
+//		String sql1 = "INSERT INTO Users(email, password, roles, enabled) VALUES ( ?,?,?,? )";
+//	    jdbcTemplate.update(sql1, sqlParameters1);
+//
+//	}
+//
+//	@Override
+//	public void saveToken(String email, String token, Date calculateExpiryToken) {
+//		
+//		Object[] sqlParameter = {email, token, calculateExpiryToken};		
+//		
+//		String sql = "INSERT INTO VerificationTokens(email, token, expiryDate) VALUES ( ?,?,? )";
+//		
+//	    jdbcTemplate.update(sql, sqlParameter);
+//		
+//	}
 	
 	@Override
 	public CreateAccountTokenDTO getToken(String token) {
@@ -86,15 +86,19 @@ public class CreateAccountDAOImpl implements CreateAccountDAOI {
 	public void createAccountWithToken(String email, String password, String token, Date calculateExpiryToken) {
         
 		//Connecting and saving data in database
-		Object[] sqlParameters1 = {email, password, "ROLES_USER", 0};
-		Object[] sqlParameter = {email, token, calculateExpiryToken};
+		Object[] sqlParameters = {email, password, "ROLES_USER", 0};
+		Object[] sqlParameters1 = {email};
+		Object[] sqlParameter2 = {email, token, calculateExpiryToken};
 		
 		//Prepared SQL statement
-		String sql1 = "INSERT INTO Users(email, password, roles, enabled) VALUES ( ?,?,?,? )";
-		String sql = "INSERT INTO VerificationTokens(email, token, expiryDate) VALUES ( ?,?,? )";
+		String sql = "INSERT INTO Users(email, password, roles, enabled) VALUES ( ?,?,?,? )";
+		String sql1 = "INSERT INTO UsersDetails(email) VALUES ( ? )";
+		String sql2 = "INSERT INTO VerificationTokens(email, token, expiryDate) VALUES ( ?,?,? )";
 		
+		//use JDBC template
+		jdbcTemplate.update(sql, sqlParameters);
 		jdbcTemplate.update(sql1, sqlParameters1);
-	    jdbcTemplate.update(sql, sqlParameter);
+	    jdbcTemplate.update(sql2, sqlParameter2);
 		
 	}
 	

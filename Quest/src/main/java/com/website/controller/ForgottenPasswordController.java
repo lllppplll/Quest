@@ -43,7 +43,7 @@ public class ForgottenPasswordController {
 	
 	//Save Token In Database
 	@RequestMapping("/reset")
-	public String ForgottenPasswordReset(@ModelAttribute("forgottenPasswordNewDTO") ForgottenPasswordNewDTO forgottenPasswordNewDTO, 
+	public String ForgottenPasswordReset(@ModelAttribute("forgottenPasswordDTO") ForgottenPasswordDTO forgottenPasswordDTO, 
 			@RequestParam("token") String token, Model model) {
 		
 		String isSuccess = service.checkToken(token, model);

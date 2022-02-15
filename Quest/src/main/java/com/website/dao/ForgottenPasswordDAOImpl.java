@@ -3,6 +3,7 @@ package com.website.dao;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -39,12 +40,9 @@ public class ForgottenPasswordDAOImpl implements ForgottenPasswordDAOI{
 	public ForgottenPasswordTokenDTO getToken(String token) {
 		
         String sql = "SELECT * FROM PasswordTokens WHERE token = ? ";
-			
-		
-        ForgottenPasswordTokenDTO getToken = jdbcTemplate.queryForObject(sql, new NewPasswordRowMapper(), token);
+        //can return a null value (used instead of queryforobject)
+        return DataAccessUtils.singleResult(jdbcTemplate.query(sql, new NewPasswordRowMapper(), token));
 
-		return getToken;
-		
 	}
 
 	@Override

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.website.dao.ForgottenPasswordDAOI;
-import com.website.dto.ForgottenPasswordNewDTO;
 import com.website.dto.ForgottenPasswordTokenDTO;
 import com.website.email.ForgottenPasswordResetEmail;
 
@@ -38,26 +37,17 @@ public class ForgottenPasswordServiceImpl implements ForgottenPasswordServiceI {
 
 	@Override
 	public String checkToken(String token, Model model) {
-		
-		//service.sendEmail(forgottenPasswordDTO.getEmail(), request.getContextPath());
-		
+				
 		//Get Token From Database
 		ForgottenPasswordTokenDTO tokenDB = dao.getToken(token);
-		
-		//Check If Token Is Present
-		if (tokenDB == null) {
-			//return message
-			model.addAttribute("tokenNotVlaid", "Verification email expired or does not exist. Please enter details again to resend verification email.");
-			return "redirect:/forgotten_password";
-		}
-		
 		//Get Date
 		Calendar calendar = Calendar.getInstance();
-
-		//Check If Email message Is Not Expired
-		if ((tokenDB.getExpiryDate().getTime() - calendar.getTime().getTime()) <= 0) {
-			model.addAttribute("tokenNotVlaid", "Verification email expired or does not exist. Please enter details again to resend verification email.");
-			return "redirect:/forgotten_password";
+		
+		//Check If Token Is Present/Check If Email message Is Not Expired
+		if (tokenDB == null || (tokenDB.getExpiryDate().getTime() - calendar.getTime().getTime()) <= 0) {
+			//return message
+			model.addAttribute("tokenNotValid", "Verification email expired or does not exist. Please enter details again to resend verification email.");
+			return "forgotten_password/forgotten_password";
 		}
 		
 		model.addAttribute("email", tokenDB.getEmail());
@@ -87,8 +77,6 @@ public class ForgottenPasswordServiceImpl implements ForgottenPasswordServiceI {
 		 }
 		 
 		return "forgotten_password/forgotten_password_success";
-		
-		
 		
 	}
 	

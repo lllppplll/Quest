@@ -20,11 +20,14 @@
 <h1>Quest</h1>
 <a class="sign_in" href="sign_in" >Sign In</a>
 
+<!-- logout -->
  <form:form action="logout" method="POST" class="nav_bar_sign_in" id="logoutLink_switch" >
  <a class="logout"  onclick="document.getElementById('logoutLink_switch').submit();" >Sign Out</a>
  </form:form>
+ <a class="my_account" href="my_account" >My Account</a>
  
- <a class="create_account" href="create_account" >Register</a>
+
+
 
 <script src="URL/javascript/home.js"></script>
 </body>

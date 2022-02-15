@@ -12,6 +12,7 @@
 </head>
 <body>
 <h1 class="main_title" >Forgotten Password</h1>
+
 <br/>
 <a class="title" href="./sign_in">Back</a>
 <br/>

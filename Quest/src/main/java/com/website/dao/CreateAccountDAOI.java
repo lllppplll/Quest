@@ -7,10 +7,11 @@ import com.website.dto.CreateAccountTokenDTO;
 
 public interface CreateAccountDAOI {
 	
-	void SaveCreateAccount(CreateAccountDTO userData);
+	//void SaveCreateAccount(CreateAccountDTO userData);
 	
 	//Email Verification
-	void saveToken(String email, String token, Date date);
+	//void saveToken(String email, String token, Date date);
+	
 	CreateAccountTokenDTO getToken(String token);
 	void enableAccount(String email, boolean enable);
 

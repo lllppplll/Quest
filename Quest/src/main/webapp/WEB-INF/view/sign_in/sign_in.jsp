@@ -14,7 +14,8 @@
 <div class="sign_in_box" >Sign In
 
 <a class="title" href="./">Home</a>
-
+<br/>
+<a class="create_account" href="create_account" >Create Account</a>
 <form:form  action="process_login" method="POST" >
 
 <input class="email" placeholder="Email" name="username" />
