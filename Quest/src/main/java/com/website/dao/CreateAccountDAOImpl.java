@@ -7,6 +7,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.website.dto.CreateAccountDTO;
 import com.website.dto.CreateAccountTokenDTO;
@@ -81,8 +82,10 @@ public class CreateAccountDAOImpl implements CreateAccountDAOI {
 		return user;
 		
 	}
-
+	
+	
 	@Override
+	@Transactional
 	public void createAccountWithToken(String email, String password, String token, Date calculateExpiryToken) {
         
 		//Connecting and saving data in database
