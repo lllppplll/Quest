@@ -25,8 +25,12 @@
  <a class="logout"  onclick="document.getElementById('logoutLink_switch').submit();" >Sign Out</a>
  </form:form>
  <a class="my_account" href="my_account" >My Account</a>
- 
-
+ <a class="contact" href="contact" >Contact</a>
+ <br/>
+ <a href="key_stage_1" >Key Stage 1</a>
+ <a href="#" >Key Stage 2</a>
+ <a href="#" >Key Stage 3</a>
+ <a href="key_stage_4" >Key Stage 4</a>
 
 
 <script src="URL/javascript/home.js"></script>
