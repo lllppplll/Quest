@@ -15,10 +15,12 @@
 
 <h1 class="main_title" >Reset Password</h1>
 <!--  Two boxes-->
-<form:form  action="saveNewPassword" method="POST" modelAttribute="forgottenPasswordNewDTO" >
+<form:form  onsubmit="return false" action="saveNewPassword" method="POST" modelAttribute="forgottenPasswordNewDTO" >
 <form:password id="password1" class="boxes"  placeholder="New Password" path="newPassword"/>
+<form:errors path="newPassword" />
 <br/>
 <form:password id="password2" class="boxes"  placeholder="Confirm Password" path="confirmPassword"/>
+<form:errors path="confirmPassword" />
 <br/>
 <form:input class="email" value="${email}" path="email"/>
 <form:input class="email" value="${token}" path="token"/>
@@ -50,6 +52,6 @@
 <input class="boxes"  type="submit" value="Reset" />
 
 </form:form> --%>
-
+<script src="URL/javascript/forgotten_password_new.js"></script>
 </body>
 </html>

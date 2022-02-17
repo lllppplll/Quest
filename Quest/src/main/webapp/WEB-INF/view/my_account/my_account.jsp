@@ -20,24 +20,24 @@
 
 <table class="Information_table" >
 
-<tr><td>Name:</td><td><form:input type="text" placeholder="firstname" value="${studentList.firstname}" path="firstname" /></td></tr>
-<tr><td></td><td><form:input type="text" placeholder="surname" value="${studentList.surname}" path="surname" /></td><td><input class="submitButton" type="submit" value="Update" onclick="updateInfo(0)" /></td></tr>
+<tr><td>Name:</td><td><form:input type="text" placeholder="firstname" value="${userInformation.firstname}" path="firstname" /></td></tr>
+<tr><td></td><td><form:input type="text" placeholder="surname" value="${userInformation.surname}" path="surname" /></td><td><input class="submitButton" type="submit" value="Update" onclick="updateInformation(0)" /></td></tr>
 <tr><td></td><td class="updateInformation" >Updated!</td></tr>
 
 <tr><td>Address:</td>
 
-<td class="table_data" ><form:input type="text" placeholder="house name/no." value="${studentList.housename}" path="housename" /></tr>
+<td class="table_data" ><form:input type="text" placeholder="house name/no." value="${userInformation.housename}" path="housename" /></tr>
 
-<tr><td></td><td><form:input type="text" placeholder="address1" value="${studentList.address1}" path="address1" /></td></tr>
-<tr><td></td><td><form:input type="text" placeholder="address2" value="${studentList.address2}" path="address2" /></td></tr>
-<tr><td></td><td><form:input type="text" placeholder="town/city" value="${studentList.town}" path="town" /></td></tr>
-<tr><td></td><td><form:input type="text" placeholder="postcode" value="${studentList.postcode}" path="postcode" /></td><td><input class="submitButton" type="submit" value="Update" onclick="updateInfo(1)"/></td></tr>
+<tr><td></td><td><form:input type="text" placeholder="address1" value="${userInformation.address1}" path="address1" /></td></tr>
+<tr><td></td><td><form:input type="text" placeholder="address2" value="${userInformation.address2}" path="address2" /></td></tr>
+<tr><td></td><td><form:input type="text" placeholder="town/city" value="${userInformation.town}" path="town" /></td></tr>
+<tr><td></td><td><form:input type="text" placeholder="postcode" value="${userInformation.postcode}" path="postcode" /></td><td><input class="submitButton" type="submit" value="Update" onclick="updateInformation(1)"/></td></tr>
 <tr><td></td><td class="updateInformation">Updated!</td></tr>
 
-<tr><td>Phone Number:</td><td><form:input type="text" placeholder="number" value="${studentList.phonenumber}" path="phonenumber" /></td><td><input class="submitButton" type="submit" value="Update" onclick="updateInfo(2)"/></td></tr>
+<tr><td>Phone Number:</td><td><form:input type="text" placeholder="number" value="${userInformation.phonenumber}" path="phonenumber" /></td><td><input class="submitButton" type="submit" value="Update" onclick="updateInformation(2)"/></td></tr>
 <tr><td></td><td class="updateInformation" >Updated!</td></tr>
 
-<tr><td>Date Of Birth:</td><td><form:input type="text" placeholder="dd/mm/yyyy" value="${studentList.dob}" path="dob" /></td><td><input class="submitButton" type="submit" value="Update" onclick="updateInfo(3)"/></td></tr>
+<tr><td>Date Of Birth:</td><td><form:input type="text" placeholder="dd/mm/yyyy" value="${userInformation.dob}" path="dob" /></td><td><input class="submitButton" type="submit" value="Update" onclick="updateInformation(3)"/></td></tr>
 <tr><td></td><td class="updateInformation">Updated!</td></tr>
 </table>
 </form:form>

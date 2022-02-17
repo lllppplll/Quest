@@ -72,8 +72,10 @@ public class ForgottenPasswordServiceImpl implements ForgottenPasswordServiceI {
 		}	 
 		 //if not matches
 		 if(!matches) {
- 			model.addAttribute("passwordsNotMatch", "Passwords do not match, Please try again.");
-			 return "redirect:/reset?token=" + token;	 
+				//check for match error
+			    model.addAttribute("passwordsNotMatch", "Passwords do not match, Please try again.");
+
+			 return "forgotten_password/forgotten_password_new";	 
 		 }
 		 
 		return "forgotten_password/forgotten_password_success";

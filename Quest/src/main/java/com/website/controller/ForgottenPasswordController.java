@@ -43,7 +43,7 @@ public class ForgottenPasswordController {
 	
 	//Save Token In Database
 	@RequestMapping("/reset")
-	public String ForgottenPasswordReset(@ModelAttribute("forgottenPasswordDTO") ForgottenPasswordDTO forgottenPasswordDTO, 
+	public String ForgottenPasswordReset(@ModelAttribute("forgottenPasswordNewDTO") ForgottenPasswordNewDTO forgottenPasswordNewDTO, 
 			@RequestParam("token") String token, Model model) {
 		
 		String isSuccess = service.checkToken(token, model);
@@ -81,7 +81,7 @@ public class ForgottenPasswordController {
 	
 	@RequestMapping("/saveNewPassword")
 	public String savePassword(ForgottenPasswordNewDTO forgottenPasswordNewDTO, Model model) {
-		
+
 		//check if passwords match, save password
 		String isSuccess = service.checkNewPassword(forgottenPasswordNewDTO.getEmail(), forgottenPasswordNewDTO.getNewPassword(), forgottenPasswordNewDTO.getConfirmPassword(), forgottenPasswordNewDTO.getToken(), model);
 		return isSuccess;

@@ -7,7 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-Password change successfully.
+You successfully changed your password.
+<br/>
 <a class="title" href="./sign_in">Sign In</a>
 </body>
 </html>

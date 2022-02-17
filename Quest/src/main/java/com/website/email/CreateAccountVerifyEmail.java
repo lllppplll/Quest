@@ -38,7 +38,7 @@ public class CreateAccountVerifyEmail {
 		String token = UUID.randomUUID().toString();
 		
 		// save token in database
-		//dao.createAccountWithToken(sendToEmail, password, token, expiry.calculateExpiryToken());
+		dao.createAccountWithToken(sendToEmail, password, token, expiry.calculateExpiryToken());
 		
 		
 		String host = "smtp.aol.com";
@@ -60,7 +60,9 @@ public class CreateAccountVerifyEmail {
 		
 		
 		//text to place in email
-		String url = appURL + "/verify?token=" + token;
+		//production url
+		String url = "localhost:8080" + appURL + "/verify?token=" + token;
+		//System.out.println(url);
 		String main_title = "Quest";
 	    String sub_title = "Thank you for registering.";
 		String messageText = "Please click on the below " 

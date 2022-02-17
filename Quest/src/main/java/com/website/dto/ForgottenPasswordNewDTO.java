@@ -3,10 +3,11 @@ package com.website.dto;
 import javax.validation.constraints.Size;
 
 public class ForgottenPasswordNewDTO {
-	// @Size(min = 8, max = 15, message = "* Password must be 8 - 15 characters")
+	
+	@Size(min = 8, max = 15, message = "* Password must be 8 - 15 characters")
 	private String newPassword;
 
-	// @Size(min = 8, max = 15, message = "* Password must be 8 - 15 characters")
+	@Size(min = 8, max = 15, message = "* Password must be 8 - 15 characters")
 	private String confirmPassword;
 
 	private String email;
