@@ -14,7 +14,7 @@ public interface ForgottenPasswordServiceI {
 	//Get Token From Database
 	String checkToken(String token, Model model);
 	//Save New Password In Database
-	String checkNewPassword(String email, String passwordNew, String passwordConfirm, String token, Model model);
+	String checkNewPassword(String email, String newPassword, String confirmPassword, boolean hasErrors, Model model);
 	
 	
 }

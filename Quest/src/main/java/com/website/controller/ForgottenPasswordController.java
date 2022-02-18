@@ -2,10 +2,13 @@ package com.website.controller;
 
 import java.util.Calendar;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -79,11 +82,11 @@ public class ForgottenPasswordController {
 //		return "forgotten_password/forgotten_password_new";
 	}
 	
-	@RequestMapping("/saveNewPassword")
-	public String savePassword(ForgottenPasswordNewDTO forgottenPasswordNewDTO, Model model) {
+	@RequestMapping("/reset-password")
+	public String savePassword(@Valid ForgottenPasswordNewDTO forgottenPasswordNewDTO, BindingResult result, Model model) {
 
 		//check if passwords match, save password
-		String isSuccess = service.checkNewPassword(forgottenPasswordNewDTO.getEmail(), forgottenPasswordNewDTO.getNewPassword(), forgottenPasswordNewDTO.getConfirmPassword(), forgottenPasswordNewDTO.getToken(), model);
+		String isSuccess = service.checkNewPassword(forgottenPasswordNewDTO.getEmail(), forgottenPasswordNewDTO.getNewPassword(), forgottenPasswordNewDTO.getConfirmPassword(), result.hasErrors(), model);
 		return isSuccess;
 	}
 	
