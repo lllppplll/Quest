@@ -25,8 +25,9 @@
 <p id="password_error2">* Password must be 8 - 15 characters js</p>
 <form:errors path="confirmPassword" />
 <br/>
-<%-- <form:input class="email" value="${email}" path="email"/>
-<form:input class="email" value="${token}" path="token"/> --%>
+
+<form:input class="email" value="${email}" path="email"/>
+
 <!--  Submit-->
 <input class="boxes"  type="submit" value="Reset" />
 </form:form>

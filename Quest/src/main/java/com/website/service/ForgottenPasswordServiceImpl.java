@@ -55,6 +55,7 @@ public class ForgottenPasswordServiceImpl implements ForgottenPasswordServiceI {
 		 * tokenDB.getToken());
 		 */
 		
+		model.addAttribute("email", tokenDB.getEmail());
 		return "forgotten_password/forgotten_password_new";
 		
 	}
@@ -72,6 +73,9 @@ public class ForgottenPasswordServiceImpl implements ForgottenPasswordServiceI {
 			 String passwordEncoded = bcrypt.encode(passwordNew);
 			//save new password in database
 			dao.saveNewPassword(email, passwordEncoded);
+			System.out.println(email + passwordEncoded);
+			System.out.println("saved complete");
+			return "forgotten_password/forgotten_password_success";
 			}	
 		 
 		//if not matches and has errors or not matches and has error - go back to screen

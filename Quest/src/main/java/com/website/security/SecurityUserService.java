@@ -17,7 +17,7 @@ public class SecurityUserService implements UserDetailsService{
 		//Gets data from database and place in an object
 		@Override
 		public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
+			
 			CreateAccountDTO user = securityUserDAO.getUserByEmail(email);
 					
 			SecurityUserDTO securityUserObject = new SecurityUserDTO(user.getId(), user.getEmail(), user.getPassword(), user.getRoles(), user.getEnabled());

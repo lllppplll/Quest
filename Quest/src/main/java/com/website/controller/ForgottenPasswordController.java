@@ -51,39 +51,11 @@ public class ForgottenPasswordController {
 		
 		String isSuccess = service.checkToken(token, model);
 		return isSuccess;
-		
-//		//service.sendEmail(forgottenPasswordDTO.getEmail(), request.getContextPath());
-//		
-//		//Get Token From Database
-//		tokenDB = service.getToken(token);
-//		
-//		//Check If Token Is Present
-//		if (tokenDB == null) {  
-//			return "forgotten_password/forgotten_password_denied";
-//		}
-//
-//		//Get Email From Database
-//		String email = tokenDB.getEmail();
-//		model.addAttribute("email", email);
-//		
-//		//Get Date
-//		Calendar calendar = Calendar.getInstance();
-//
-//		//Check If Email Is Not Expired
-//		if ((tokenDB.getExpiryDate().getTime() - calendar.getTime().getTime()) <= 0) {
-//			return "forgotten_password/forgotten_password_expired";
-//		}
-//
-//		//Set Enabled In DTO
-//		//forgottenPasswordDTO.setEnabled(true);
-//		//Save Enabled In Database
-//		//service.enableAccount(email, createAccountDTO.getEnabled());
-//		
-//		return "forgotten_password/forgotten_password_new";
+
 	}
 	
 	@RequestMapping("/reset-password")
-	public String savePassword(@Valid ForgottenPasswordNewDTO forgottenPasswordNewDTO, BindingResult result, Model model) {
+	public String savePassword(@Valid @ModelAttribute("forgottenPasswordNewDTO") ForgottenPasswordNewDTO forgottenPasswordNewDTO, BindingResult result, Model model) {
 
 		//check if passwords match, save password
 		String isSuccess = service.checkNewPassword(forgottenPasswordNewDTO.getEmail(), forgottenPasswordNewDTO.getNewPassword(), forgottenPasswordNewDTO.getConfirmPassword(), result.hasErrors(), model);
