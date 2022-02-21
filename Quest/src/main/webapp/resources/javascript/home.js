@@ -1,6 +1,11 @@
 /*alert("javascript page is working");*/
 
-let toggle = false;
+function KS1(){
+	document.getElementById("KS1_subjects").style.height = "120px";
+	document.getElementById("KS1_subjects").style.overflow = "show";
+}
+
+/*let toggle = false;
 let section_array = ["about_me_section", "projects_section", "contact_section"];
 
 //toggles menu on and off
@@ -10,7 +15,6 @@ function menu(){
 		document.getElementsByClassName("nav_bar_boxB")[0].style.display = "block";
 		document.getElementsByClassName("name")[0].style.transform = "translate(-90px, -180px)";
 		document.getElementsByClassName("job_title")[0].style.transform = "translate(-90px, -200px)";
-		/*document.getElementsByClassName("head")[0].style.height = "640px";*/
 		//lanscape mode extend head colour when button is pressed
 		if(window.orientation == 90){
 			document.getElementsByClassName("head")[0].style.height = "640px";
@@ -19,10 +23,6 @@ function menu(){
 		}
 	if(toggle == true){
 		location.reload();
-	/*	document.getElementsByClassName("nav_bar_boxB")[0].style.display = "none"*/	
-	/*	document.getElementsByClassName("name")[0].style.transform = "translate(-90px, -80px)";
-		document.getElementsByClassName("job_title")[0].style.transform = "translate(-90px, -100px)";
-		document.getElementsByClassName("head")[0].style.height = "500px";*/
 		}
 		
 		toggle = !toggle;
@@ -31,7 +31,6 @@ function menu(){
 //colapses menu bar when resized screen
 function size(){
 let width = window.innerWidth;
-/*document.getElementById("size").innerHTML = width;*/
 if(width >= 720 && toggle == true){
 	location.reload();
 }
@@ -64,7 +63,6 @@ function scrollingAboutMeParagraph(){
 	
 	//add a class(css-variable) to an element called class="active"
 	if(revealTop < (windowHeight - revealPoint)){
-	/*if(true){*/
 		fadeInElement.classList.add("AboutMeFadeIn");
 		//remove event listener
 		window.removeEventListener("scroll", scrollingAboutMeParagraph);
@@ -75,7 +73,7 @@ function scrollingAboutMeParagraph(){
 	
 	
 	
-}
+}*/
 
 
 

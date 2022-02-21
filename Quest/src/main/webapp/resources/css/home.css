@@ -1,5 +1,10 @@
 @charset "ISO-8859-1";
 
+body{
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
 
 h1{
 	color: green;
@@ -12,4 +17,12 @@ h1{
 
 .logout{
 	cursor: pointer;
+}
+
+#KS1_subjects{
+	width: auto;
+	height: 0px;
+	overflow: hidden;
+	background-color: #ebebeb;
+	transition: height 0.3s;
 }
