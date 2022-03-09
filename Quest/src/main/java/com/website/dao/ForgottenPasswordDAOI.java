@@ -6,6 +6,8 @@ import com.website.dto.ForgottenPasswordTokenDTO;
 
 public interface ForgottenPasswordDAOI {
 	
+	//check if email exists
+	int checkEmail(String email);
     //Save Token In Database
 	void saveToken(String email, String token, Date calculateExpiryToken);
 	//get token
@@ -14,5 +16,6 @@ public interface ForgottenPasswordDAOI {
 	void saveNewPassword(String email, String password);
 //	//enable account enable = 1
 //	void enableAccount(String email);
+	
 	
 }

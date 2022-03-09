@@ -36,10 +36,22 @@ public class ForgottenPasswordController {
 	
 	//Save Token In Database
 	@RequestMapping("/forgotten_password_submit")
-	public String ForgottenPasswordProcess(ForgottenPasswordDTO forgottenPasswordDTO, WebRequest request) {
+	public String ForgottenPasswordProcess(@ModelAttribute("forgottenPasswordDTO") ForgottenPasswordDTO forgottenPasswordDTO, WebRequest request, Model model) {
 		
-		service.sendEmail(forgottenPasswordDTO.getEmail(), request.getContextPath());	
-		return "forgotten_password/forgotten_password_reset";
+		//check if email exists
+		int isEmail = service.checkEmail(forgottenPasswordDTO.getEmail());
+		//if email does not exist
+		if(isEmail == 0) {
+			model.addAttribute("emailError", "Email not found");
+			return "forgotten_password/forgotten_password";
+		}
+		
+		if(isEmail == 1) {
+		//send email
+	    service.sendEmail(forgottenPasswordDTO.getEmail(), request.getContextPath());	
+		}
+		
+	    return "forgotten_password/forgotten_password_reset";
 	}
 	
 	//change

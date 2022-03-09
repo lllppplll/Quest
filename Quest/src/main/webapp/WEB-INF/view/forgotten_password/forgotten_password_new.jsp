@@ -18,13 +18,13 @@
 <!--  Two boxes-->
 <form:form  onsubmit="return validate(document.getElementById('password1').value.trim().length, document.getElementById('password2').value.trim().length)" action="reset-password" method="POST" modelAttribute="forgottenPasswordNewDTO" >
 <form:password id="password1" class="boxes"  placeholder="New Password" path="newPassword"/>
-<p id="password_error1">* Password must be 8 - 15 characters js</p>
+<p id="password_error1">* Password must be 8 - 15 characters</p>
 <form:errors path="newPassword" />
-<br/>
+
 <form:password id="password2" class="boxes"  placeholder="Confirm Password" path="confirmPassword"/>
-<p id="password_error2">* Password must be 8 - 15 characters js</p>
+<p id="password_error2">* Password must be 8 - 15 characters</p>
 <form:errors path="confirmPassword" />
-<br/>
+
 
 <form:input class="email" value="${email}" path="email"/>
 

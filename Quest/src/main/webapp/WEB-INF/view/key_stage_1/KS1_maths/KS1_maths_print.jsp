@@ -10,14 +10,13 @@
 </head>
 <body>
 <h1>Key Stage 1: Maths: Questions.</h1>
-<!-- <button id="add_button" >Add</button>
-<button id="subtract_button" >Subtract</button> -->
-
+<a id="home_button" href="./">Home</a>
+<br/><br/>
 <label id="add_button" for="add_button">Add</label>
 <input type="radio" id="add_button" name="sign" value="Add" onclick="add_checked()"  checked="checked">
-<label id="subtract_button" for="subtract_button">subject</label>
+<label id="subtract_button" for="subtract_button">Subtract</label>
 <input type="radio" id="subtract_button" name="sign" value="Subtract" onclick="subtract_checked()" >
-
+<br/><br/>
 <button id="print_button" onclick="window.print()">Print this page</button>
 
 <br/><br/>
@@ -50,6 +49,8 @@
 <div id="question9a" ><span class="number" >9. </span><span class="answer" >a</span></div>
 <div id="question10a" ><span class="number" >10. </span><span class="answer" >a</span></div>
 </div>
+
+<br/><br/>
 
 <script src="URL/javascript/KS1_maths_print.js" ></script>
 </body>

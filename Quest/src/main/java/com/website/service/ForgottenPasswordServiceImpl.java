@@ -33,11 +33,18 @@ public class ForgottenPasswordServiceImpl implements ForgottenPasswordServiceI {
 	public void saveToken(String email, String appURL) {
 			//dao.saveToken(email, appURL);
 	}
-
+	
+	@Override
+	public int checkEmail(String email) {
+		
+		int isEmail = dao.checkEmail(email);
+		
+		return isEmail;
+	}
 
 	@Override
 	public String checkToken(String token, Model model) {
-				
+		
 		//Get Token From Database
 		ForgottenPasswordTokenDTO tokenDB = dao.getToken(token);
 		//Get Date

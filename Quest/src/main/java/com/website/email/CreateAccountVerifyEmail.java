@@ -1,6 +1,6 @@
 package com.website.email;
 
-import java.util.Properties;
+
 import java.util.UUID;
 
 import javax.activation.DataHandler;
@@ -9,7 +9,6 @@ import javax.activation.FileDataSource;
 import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -24,13 +23,20 @@ import com.website.dao.CreateAccountDAOI;
 import com.website.dto.CreateAccountTokenDTO;
 
 @Component
+//@PropertySource("classpath:email.properties")
 public class CreateAccountVerifyEmail {
+	
+//	@Autowired
+//	private Environment env;
 	
 	@Autowired
 	private CreateAccountDAOI dao;
 	
 	@Autowired
 	private CreateAccountTokenDTO expiry;
+	
+	@Autowired
+	private Session sessionEmail;
 	
 	public void SendEmail(String sendToEmail, String password, String appURL) {
 		
@@ -39,25 +45,6 @@ public class CreateAccountVerifyEmail {
 		
 		// save token in database
 		dao.createAccountWithToken(sendToEmail, password, token, expiry.calculateExpiryToken());
-		
-		
-		String host = "smtp.aol.com";
-		final String username = "OnePhoenixF";
-		final String passwordEmail = "zzhbswgmljbifnjq";
-
-		Properties props = new Properties();
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");// it’s optional in Mailtrap
-		props.put("mail.smtp.host", host);
-		props.put("mail.smtp.port", "587");// use one of the options in the SMTP settings tab in your Mailtrap Inbox
-
-		// Get the Session object.
-		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(username, passwordEmail);
-			}
-		});
-		
 		
 		//text to place in email
 		//production url
@@ -70,7 +57,7 @@ public class CreateAccountVerifyEmail {
 
 		try {
 			// Create a default MimeMessage object.
-			Message message = new MimeMessage(session);
+			Message message = new MimeMessage(sessionEmail);
 
 			// Set From: header field
 			message.setFrom(new InternetAddress("OnePhoenixF@aol.com"));
@@ -81,9 +68,6 @@ public class CreateAccountVerifyEmail {
 			// Set Subject: header field
 			message.setSubject("Verification Email");
 
-
-		   
-			
 	         // This mail has 2 part, the BODY and the embedded image
 	         MimeMultipart multipart = new MimeMultipart("related");
 
@@ -132,8 +116,6 @@ public class CreateAccountVerifyEmail {
 
 	         // put everything together
 	         message.setContent(multipart);
-	         
-	         
 	         
 
 			// Send message

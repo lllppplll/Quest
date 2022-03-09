@@ -31,8 +31,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http
 		.authorizeRequests()
 	//	.anyRequest()
-//		.antMatchers("/my_account").authenticated()
-		.and().formLogin().loginPage("/sign_in").loginProcessingUrl("/process_login").permitAll()
+		.antMatchers("/my_account").authenticated()
+		.antMatchers("/contact").authenticated()
+		.and().formLogin().loginPage("/sign_in").loginProcessingUrl("/process_login").failureUrl("/sign_in?error=true").permitAll()
 		.and().httpBasic()
 		.and().logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll();	
 		

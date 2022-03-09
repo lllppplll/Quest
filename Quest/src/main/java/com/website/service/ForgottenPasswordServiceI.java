@@ -7,6 +7,8 @@ import com.website.dto.ForgottenPasswordTokenDTO;
 
 public interface ForgottenPasswordServiceI {
 	
+	//check if email exists
+	int checkEmail(String email);
 	//Send Email
 	void sendEmail(String email, String appURL);
 	//Save Token In Database
@@ -15,6 +17,5 @@ public interface ForgottenPasswordServiceI {
 	String checkToken(String token, Model model);
 	//Save New Password In Database
 	String checkNewPassword(String email, String newPassword, String confirmPassword, boolean hasErrors, Model model);
-	
 	
 }

@@ -1,7 +1,5 @@
 /*alert("js working");*/
 
-
-
 /*if(isnotmatch.innerHTML == "1"){
 	document.getElementById("no_match_error").style.display = "inline-block";
 }*/

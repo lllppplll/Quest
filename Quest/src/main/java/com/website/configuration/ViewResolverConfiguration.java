@@ -5,9 +5,13 @@ import java.util.Properties;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -23,8 +27,14 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
+@PropertySource("classpath:jdcb.properties")
+@PropertySource("classpath:email.properties")
 @ComponentScan(basePackages = { "com.website" })
 public class ViewResolverConfiguration implements WebMvcConfigurer {
+	
+	//Getting properties file variables
+	@Autowired
+	private Environment env;
 
 	//Prefix and Suffix of controller text
 	@Bean
@@ -54,15 +64,8 @@ public class ViewResolverConfiguration implements WebMvcConfigurer {
 	public DataSource dataSource() {
 		//In development
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setUrl("jdbc:sqlserver://DESKTOP-D199DEA:1433;databaseName=Quest;integratedSecurity=true;");
-		dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		
-		//In production
-//		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//		dataSource.setUrl("jdbc:sqlserver://quest.ck1mwepqmauh.eu-west-2.rds.amazonaws.com;databaseName=Quest;");
-//		dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-//		dataSource.setUsername("admin");
-//		dataSource.setPassword("adventuredb");
+		dataSource.setUrl(env.getProperty("mssql.datasource.url"));
+		dataSource.setDriverClassName(env.getProperty("mssql.datasource.driverClassName"));
 	
 		return dataSource;
 	}
@@ -78,5 +81,26 @@ public class ViewResolverConfiguration implements WebMvcConfigurer {
 	public PasswordEncoder getPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
+	//Send Email
+	@Bean
+	public Session SessionEmail() {
+	String host = "smtp.gmail.com";
+	final String username = env.getProperty("email.username");
+	final String passwordEmail = env.getProperty("email.password");
 
+	Properties props = new Properties();
+	props.put("mail.smtp.auth", "true");
+	props.put("mail.smtp.starttls.enable", "true");// it’s optional in Mailtrap
+	props.put("mail.smtp.host", host);
+	props.put("mail.smtp.port", "587");// use one of the options in the SMTP settings tab in your Mailtrap Inbox
+
+	// Get the Session object.
+	Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+		protected PasswordAuthentication getPasswordAuthentication() {
+			return new PasswordAuthentication(username, passwordEmail);
+		}
+	});
+	return session;
+	}
 }

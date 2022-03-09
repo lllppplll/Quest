@@ -4,23 +4,109 @@ body{
 	margin: 0;
 	padding: 0;
 	text-align: center;
+	display: grid;
 }
 
-h1{
+
+
+#nav_bar{
+	display: grid;
+	grid-template-columns: 900px 100px 100px 100px;
+	height: 100px;
+	border: 1px solid black;
+}
+
+#title{
+	font-size: 40px;
+	color: green;
+	margin-left: 100px;
+	justify-self: start;
+	align-self: center;
+}
+
+#sign_in, #contact, #my_account{
+	text-decoration: none;
+	color: black;
+	justify-self: center; 
+	align-self: center;
+}
+
+#signInOut{
+	justify-self: center; 
+	align-self: center;
+}
+
+#logout{
+	cursor: pointer;
+	display: none;
+	justify-self: center; 
+	align-self: center;
+}
+
+#maths_print, #maths_game{
+	display: grid;
+	height: 50px;
+	width: 200px;
+	border: 1px solid black;
+	margin: 10px auto;
+	text-decoration: none;
+	justify-self: center; 
+	align-self: center;
+}
+
+
+#main_box{
+	width: 40%;
+	height: auto;
+	margin: 10px auto;
+	border: 2px solid black;
+	display: grid;
+}
+#key_stage_boxes{
+	display: grid;
+	margin-top: 100px;
+	grid-template-columns: 100px 100px 100px 100px;
+	column-gap: 2px;
+	/* row-gap: 30px; */
+	justify-self: center;
+	transform: translateY(-80px);
+}
+
+#main_box1{
+	width: 40%;
+	height: auto;
+	margin: 10px auto;
+	border: 2px solid black;
+	display: grid;
+	transform: translateY(-20px);
+}
+#key_stage_boxes1{
+	display: grid;
+	margin-top: 100px;
+	grid-template-columns: 100px 100px 100px 100px;
+	column-gap: 2px;
+	/* row-gap: 30px; */
+	justify-self: center;
+	transform: translateY(-80px);
+}
+
+#KS1_button, #KS2_button, #KS3_button, #KS4_button{
+	height: 100px;
+	width: 100px;
+	border-radius: 5px;
+	justify-self: center;
+	align-self: center;
+	transition: linear 0.1s
+}
+
+#KS1_button:hover, #KS2_button:hover, #KS3_button:hover, #KS4_button:hover{
+	transform: scale(1.03);
 	color: green;
 }
 
-.sign_in{
-	text-decoration: none;
-	color: black;
-}
-
-.logout{
-	cursor: pointer;
-}
-
 #KS1_subjects{
-	width: auto;
+	width: 40%;
+	margin: 0 auto 50px auto;
 	height: 0px;
 	overflow: hidden;
 	background-color: #ebebeb;

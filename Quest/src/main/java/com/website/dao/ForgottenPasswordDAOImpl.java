@@ -24,6 +24,17 @@ public class ForgottenPasswordDAOImpl implements ForgottenPasswordDAOI{
 //		// TODO Auto-generated method stub
 //		
 //	}
+	
+	//check email
+	@Override
+	public int checkEmail(String email) {
+		
+		String sql = "SELECT CASE WHEN EXISTS (SELECT * FROM Users WHERE email = ? )THEN CAST(1 AS BIT)ELSE CAST(0 AS BIT) END";
+
+        int isEmail = jdbcTemplate.queryForObject(sql, Integer.class, email);
+	    
+		return isEmail;
+	}
 
 	@Override
 	public void saveToken(String email, String token, Date calculateExpiryToken) {

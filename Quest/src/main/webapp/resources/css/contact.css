@@ -1,0 +1,38 @@
+@charset "ISO-8859-1";
+
+body{
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	/* display: grid; */
+}
+
+#send_button_email{
+	margin-top: 20px;
+	transform: translate(-102px);
+}
+#choose_file{
+	/* margin: 50px; */
+	transform: translate(-94px);
+}
+
+#to_email{
+	width: 500px;
+	margin-top: 10px;
+}
+#subject_email{
+	width: 500px;
+	margin-top: 10px;
+}
+#body_email{
+	width: 500px;
+	height: 200px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+#email_box{
+	width: 600px;
+	height: auto;
+	border: 1px solid black;
+	margin: 20px auto;
+}

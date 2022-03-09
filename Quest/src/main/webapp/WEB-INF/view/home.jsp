@@ -17,33 +17,62 @@
 </head>
 <body>
 
-	<h1>Quest</h1>
-	<a class="sign_in" href="sign_in">Sign In</a>
+    <div id="nav_bar" >
+	<div id="title" >Quest</div>
+
+	<a id="contact" href="contact">Contact</a>
+	<a id="my_account" href="my_account">My Account</a>
 
 	<!-- logout -->
-	<form:form action="logout" method="POST" class="nav_bar_sign_in" id="logoutLink_switch">
+	<div id="signInOut" >
+	<form:form action="logout" method="POST"  id="logout">
 		<a class="logout" onclick="document.getElementById('logoutLink_switch').submit();">Sign Out</a>
 	</form:form>
 	
-	<a class="my_account" href="my_account">My Account</a>
-	<a class="contact" href="contact">Contact</a>
-	<br />
+	<a id="sign_in" href="sign_in">Sign In</a>
+	</div>
+	</div>
 	
+	<a id="maths_print" href="KS1_maths_print" >Maths: Print</a>
+	<a id="maths_game" href="game" >Maths: Game</a>
+	
+	
+	
+<!-- 	<div id="main_box" >
+	<h1>Revision: Print</h1>
+	
+	<div id="key_stage_boxes" >
 	<button id="KS1_button" onclick="KS1()">Key
 		Stage 1</button>
-	<a href="#">Key Stage 2</a>
-	<a href="#">Key Stage 3</a>
-	<a href="#">Key Stage 4</a>
-	
+	<button id="KS2_button">Key Stage 2</button>
+	<button id="KS3_button">Key Stage 3</button>
+	<button id="KS4_button">Key Stage 4</button>
+	</div>
+	</div>
 	<br/><br/>
-	
 	<div id="KS1_subjects" >
 		<h1>Key Stage 1: Subjects:</h1>
-		<a id="maths" href="KS1_maths" >Maths</a>
+		<a id="maths" href="KS1_maths_print" >Maths</a>
 		<a href="#" >English</a>
 		<a href="#" >Science</a>
 	</div>
-<div>footer</div>
+	
+	<div id="main_box1" >
+	<h1>Games:</h1>
+	
+	<div id="key_stage_boxes1" >
+	<button id="KS1_button_game" onclick="KS1Game()">Key
+		Stage 1</button>
+	<button id="KS2_button">Key Stage 2</button>
+	<button id="KS3_button">Key Stage 3</button>
+	<button id="KS4_button">Key Stage 4</button>
+	</div>
+	</div>
+	<br/><br/> -->
+	
+	
+<!-- <div>footer</div> -->
+
 <script src="URL/javascript/key_stage_1.js"></script>
 <script src="URL/javascript/home.js"></script>
 </body>

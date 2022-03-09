@@ -14,36 +14,33 @@
 <title>Create Account</title>
 </head>
 <body>
-<h1>Create an Account</h1>
+<h1 id="create_title" >Create an Account</h1>
 
-	<a href="./">Home</a>
+	<a class="title" href="./sign_in">Back</a>
+	<br/>
+<br/>
 
-	<form:form   onsubmit="return validate(document.getElementById('email').value.trim(), document.getElementById('password').value.trim().length)" action="create_account_submit" modelAttribute="createAccountDTO" method="POST">
-		<table>
-			<tr>
-				<td><form:input id="email" placeholder="Email" path="email" /></td>
-			</tr>
-			<tr>
-				<td><span id="email_required">* Email required js</span>
-				    <form:errors class="email_error" path="email" />
-				</td>			
-			</tr>
-			<tr>
-				<td><form:password id="password" placeholder="Password" path="password" /></td>
-			</tr>
-			<tr>
-				<td><span id="password_required_length">* Password must be 8 - 15 characters js</span>
-				    <form:errors class="password_length_error" path="password" />
-				</td>
-			</tr>
-			<tr>
-				<td><input id="create_button" type="submit" value="Submit" /></td>
-			</tr>
-		</table>
+<div id="create_form" >
+	<form:form onsubmit="return validate(document.getElementById('email').value.trim(), document.getElementById('password').value.trim().length)" action="create_account_submit" modelAttribute="createAccountDTO" method="POST">
+	
+		<form:input id="email" placeholder="Email" path="email" />
+
+		<p id="email_required">* Email required</p>
+	    <form:errors class="email_error" path="email" />
+	
+	    <form:password id="password" placeholder="Password" path="password" />
+
+		<p id="password_required_length">* Password must be 8 - 15 characters</p>
+		<form:errors class="password_length_error" path="password" />
+	
+		<input id="create_button" type="submit" value="Submit" />
+		
 	</form:form>
 	<p>${returnMessage}</p>
 	<p>${isEmail}</p>
+	</div>
 
+	
 <script src="URL/javascript/create_account.js"></script>
 </body>
 </html>
