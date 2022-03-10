@@ -16,7 +16,7 @@
 
 <h1 class="main_title" >Reset Password</h1>
 <!--  Two boxes-->
-<form:form  onsubmit="return validate(document.getElementById('password1').value.trim().length, document.getElementById('password2').value.trim().length)" action="reset-password" method="POST" modelAttribute="forgottenPasswordNewDTO" >
+<form:form  onsubmit="return validate_forgotten_password_new(document.getElementById('password1').value.trim().length, document.getElementById('password2').value.trim().length)" action="reset-password" method="POST" modelAttribute="forgottenPasswordNewDTO" >
 <form:password id="password1" class="boxes"  placeholder="New Password" path="newPassword"/>
 <p id="password_error1">* Password must be 8 - 15 characters</p>
 <form:errors path="newPassword" />

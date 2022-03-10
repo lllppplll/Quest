@@ -9,7 +9,7 @@ let password_error1 = document.getElementById("password_error1");
 let password_error2 = document.getElementById("password_error2");
 let no_match_error = document.getElementById("no_match_error");
 
-function validate(password1, password2){
+function validate_forgotten_password_new(password1, password2){
 //password must be 8 - 15 characters long
 	if(password1 <= 7 || password1 >= 16){
 		password_error1.style.display = "block"; }else{

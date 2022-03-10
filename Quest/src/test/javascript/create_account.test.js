@@ -76,7 +76,7 @@ describe("create account validation // UNIT TESTS", function(){
 	it("validate Validation 'emailMessage' ", function(){
 		// arrange
 		// act
-		validate("email", "");
+		validate_create_account("email", "");
 		// assert
 		expect(emailMessage).toEqual("none");
 		expect(passwordMessage).toEqual("block");
@@ -84,7 +84,7 @@ describe("create account validation // UNIT TESTS", function(){
 	it("validate Validation 'passwordMessage' ", function(){
 		// arrange
 		// act
-		validate("", "password");
+		validate_create_account("", "password");
 		// assert
 		expect(emailMessage).toEqual("block");
 		expect(passwordMessage).toEqual("none");
@@ -93,7 +93,7 @@ describe("create account validation // UNIT TESTS", function(){
 	it("validate DOM changes 'emailMessage'", function(){
 		// arrange
 		// act
-		validate("email", "");
+		validate_create_account("email", "");
 		DOMemail(emailMessage);
 		// assert
 		expect(document.getElementById("email_required").style.display).toEqual("none");
@@ -102,7 +102,7 @@ describe("create account validation // UNIT TESTS", function(){
 	it("validate DOM changes 'passwordMessage' ", function(){
 		// arrange
 		// act
-		validate("", "password");
+		validate_create_account("", "password");
 		DOMpassword(passwordMessage);
 		// assert
 		expect(document.getElementById("email_required").style.display).toEqual("block");
@@ -136,16 +136,16 @@ describe("create account validation // E2E TESTS", function(){
 		// arrange	
 		// act
 		// assert
-		expect(validate("email", "password")).toEqual(true);
-		expect(validate("", "password")).toEqual(false);
-		expect(validate("email", "")).toEqual(false);
-		expect(validate("", "")).toEqual(false);
+		expect(validate_create_account("email", "password")).toEqual(true);
+		expect(validate_create_account("", "password")).toEqual(false);
+		expect(validate_create_account("email", "")).toEqual(false);
+		expect(validate_create_account("", "")).toEqual(false);
 	});
 	
 		it("DOM test TRUE", function(){
 		// arrange
 		// act
-		validate("email", "password");
+		validate_create_account("email", "password");
 		// assert
 		expect(document.getElementById("email_required").style.display).toEqual("none");
 		expect(document.getElementById("password_required_length").style.display).toEqual("none");
@@ -155,7 +155,7 @@ describe("create account validation // E2E TESTS", function(){
 	it("DOM test FALSE", function(){
 		// arrange
 		// act
-		validate("", "");
+		validate_create_account("", "");
 		// assert
 		expect(document.getElementById("email_required").style.display).toEqual("block");
 		expect(document.getElementById("password_required_length").style.display).toEqual("block");

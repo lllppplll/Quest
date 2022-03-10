@@ -1,9 +1,9 @@
 /*alert("javascript page is working");*/
 
-function KS1(){
+/*function KS1(){
 	document.getElementById("KS1_subjects").style.height = "120px";
 	document.getElementById("KS1_subjects").style.overflow = "show";
-}
+}*/
 
 /*let toggle = false;
 let section_array = ["about_me_section", "projects_section", "contact_section"];

@@ -102,4 +102,11 @@ public class MyAccountDTO {
 		this.dob = dob;
 	}
 
+	@Override
+	public String toString() {
+		return "MyAccountDTO [id=" + id + ", email=" + email + ", firstname=" + firstname + ", surname=" + surname
+				+ ", housename=" + housename + ", address1=" + address1 + ", address2=" + address2 + ", town=" + town
+				+ ", postcode=" + postcode + ", phonenumber=" + phonenumber + ", dob=" + dob + "]";
+	}
+
 }

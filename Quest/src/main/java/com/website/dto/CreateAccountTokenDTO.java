@@ -8,62 +8,68 @@ import org.springframework.stereotype.Component;
 @Component
 public class CreateAccountTokenDTO {
 
-		private static final int EXPIRATION = 60 * 24;
+	private static final int EXPIRATION = 60 * 24;
 
-		private int id;
-		
-		private String email;
+	private int id;
 
-		private String token;
+	private String email;
 
-		private Date expiryDate;
+	private String token;
 
-		
-		public int getId() {
-			return id;
-		}
+	private Date expiryDate;
 
-		public void setId(int id) {
-			this.id = id;
-		}
-
-		public String getEmail() {
-			return email;
-		}
-
-		public void setEmail(String email) {
-			this.email = email;
-		}
-
-		public String getToken() {
-			return token;
-		}
-
-		public void setToken(String token) {
-			this.token = token;
-		}
-
-		public Date getExpiryDate() {
-			return expiryDate;
-		}
-
-		public void setExpiryDate(Date expiryDate) {
-			this.expiryDate = expiryDate;
-		}
-
-		public static int getExpiration() {
-			return EXPIRATION;
-		}
-		
-		public Date calculateExpiryToken() {
-		
-			Calendar calendar = Calendar.getInstance();
-			calendar.add(Calendar.MINUTE, EXPIRATION);
-			Date expiryDate = calendar.getTime();
-		
-			return expiryDate;
-		}
+	public int getId() {
+		return id;
 	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public Date getExpiryDate() {
+		return expiryDate;
+	}
+
+	public void setExpiryDate(Date expiryDate) {
+		this.expiryDate = expiryDate;
+	}
+
+	public static int getExpiration() {
+		return EXPIRATION;
+	}
+
+	public Date calculateExpiryToken() {
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.MINUTE, EXPIRATION);
+		Date expiryDate = calendar.getTime();
+
+		return expiryDate;
+	}
+
+	@Override
+	public String toString() {
+		return "CreateAccountTokenDTO [id=" + id + ", email=" + email + ", token=" + token + ", expiryDate="
+				+ expiryDate + "]";
+	}
+
+}
 
 //public Date calculateExpiryToken() {
 //

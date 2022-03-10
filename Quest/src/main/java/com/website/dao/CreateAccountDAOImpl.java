@@ -3,13 +3,10 @@ package com.website.dao;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.website.dto.CreateAccountDTO;
 import com.website.dto.CreateAccountTokenDTO;
 import com.website.rowmapper.EmailVerificationRowMapper;
 
@@ -27,28 +24,6 @@ public class CreateAccountDAOImpl implements CreateAccountDAOI {
 	public CreateAccountDAOImpl(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
-
-//	@Override
-//	public void SaveCreateAccount(CreateAccountDTO userData) {
-//		
-//        //Connecting and saving data in database
-//		Object[] sqlParameters1 = {userData.getEmail(), userData.getPassword(), userData.getRoles(), userData.getEnabled()};
-//		//Prepared SQL statement
-//		String sql1 = "INSERT INTO Users(email, password, roles, enabled) VALUES ( ?,?,?,? )";
-//	    jdbcTemplate.update(sql1, sqlParameters1);
-//
-//	}
-//
-//	@Override
-//	public void saveToken(String email, String token, Date calculateExpiryToken) {
-//		
-//		Object[] sqlParameter = {email, token, calculateExpiryToken};		
-//		
-//		String sql = "INSERT INTO VerificationTokens(email, token, expiryDate) VALUES ( ?,?,? )";
-//		
-//	    jdbcTemplate.update(sql, sqlParameter);
-//		
-//	}
 	
 	@Override
 	public CreateAccountTokenDTO getToken(String token) {
@@ -64,10 +39,8 @@ public class CreateAccountDAOImpl implements CreateAccountDAOI {
 	@Override
 	public void enableAccount(String email, boolean enable) {
 		
-			Object[] sqlParameter = { enable, email};
-							
-			String sql = "UPDATE Users Set enabled = ? WHERE email = ?";
-					
+			Object[] sqlParameter = { enable, email};					
+			String sql = "UPDATE Users Set enabled = ? WHERE email = ?";			
 		    jdbcTemplate.update(sql, sqlParameter);
 		 
 		}
@@ -75,8 +48,10 @@ public class CreateAccountDAOImpl implements CreateAccountDAOI {
 	@Override
 	public int isEmail(String email) {
 		
-		String sql = "SELECT CASE WHEN EXISTS (SELECT * FROM Users WHERE email = ? )THEN CAST(1 AS BIT)ELSE CAST(0 AS BIT) END";
-
+		//String sql = "SELECT CASE WHEN EXISTS (SELECT email FROM Users WHERE email = ? )THEN CAST(1 AS BIT)ELSE CAST(0 AS BIT) END";
+		//String sql = "SELECT CASE WHEN  EXISTS (SELECT email FROM Users WHERE email = ?) THEN 1 ELSE 0 END FROM Users";
+		String sql = "SELECT CASE WHEN email = ? THEN 1 ELSE 0 END FROM Users";
+		
         int user = jdbcTemplate.queryForObject(sql, Integer.class, email);
 		
 		return user;

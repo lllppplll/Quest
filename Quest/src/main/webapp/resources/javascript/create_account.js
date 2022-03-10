@@ -8,7 +8,7 @@ let passwordRequiredLength = document.getElementById("password_required_length")
 //Disable sumbit button if form is valid
 let disableButton = document.getElementById("create_button");
 
-function validate(emailInput, passwordInput){
+function validate_create_account(emailInput, passwordInput){
 	
 	//Validation
 	//Email Validation - not blank

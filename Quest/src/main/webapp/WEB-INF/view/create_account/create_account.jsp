@@ -21,7 +21,7 @@
 <br/>
 
 <div id="create_form" >
-	<form:form onsubmit="return validate(document.getElementById('email').value.trim(), document.getElementById('password').value.trim().length)" action="create_account_submit" modelAttribute="createAccountDTO" method="POST">
+	<form:form onsubmit="return validate_create_account(document.getElementById('email').value.trim(), document.getElementById('password').value.trim().length)" action="create_account_submit" modelAttribute="createAccountDTO" method="POST">
 	
 		<form:input id="email" placeholder="Email" path="email" />
 
