@@ -47,12 +47,12 @@ public class CreateAccountController {
 	public String CreateAccountSave(@Valid @ModelAttribute("createAccountDTO") CreateAccountDTO userData, BindingResult result, WebRequest request, Model model) {
 		
 //      Check input fields requirements are met, and email does not exist
-		String isValid = service.isValid(result.hasErrors(), userData.getEmail(), userData, request.getContextPath(), model);
+		String isValid = service.isValid(result.hasErrors(), userData, request.getContextPath());
 		
-		//check email does not exist, save
-//		if(!result.hasErrors()) {
-//		service.SaveCreateAccountDetails(userData, request.getContextPath());
-//		}
+		if(isValid == "create_account/create_account") {
+			//send message
+			model.addAttribute("isEmail", "Email already exists.");
+		}
 		
 		return isValid;
 	}
@@ -61,7 +61,12 @@ public class CreateAccountController {
 		@GetMapping("/verify")
 		public String verify(@ModelAttribute("createAccountDTO") CreateAccountDTO createAccountDTO, @RequestParam("token") String token, Model model) {
 			
-			String isSuccess = service.CreateAccountSuccess(createAccountDTO, token, model);
+			String isSuccess = service.CreateAccountSuccess(createAccountDTO, token);
+			
+			if (isSuccess == "create_account/create_account") {
+				model.addAttribute("returnMessage",
+						"Verification email expired or does not exist. Please enter details again to resend verification email.");
+			}
 
 			return isSuccess;
 		}

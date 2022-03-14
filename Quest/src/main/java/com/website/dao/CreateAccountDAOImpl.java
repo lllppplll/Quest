@@ -7,7 +7,10 @@ import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.website.dto.CreateAccountDTO;
 import com.website.dto.CreateAccountTokenDTO;
+import com.website.rowmapper.EmailValidRowMapper;
 import com.website.rowmapper.EmailVerificationRowMapper;
 
 @Repository
@@ -46,13 +49,15 @@ public class CreateAccountDAOImpl implements CreateAccountDAOI {
 		}
 
 	@Override
-	public int isEmail(String email) {
+	public CreateAccountDTO isEmail(String email) {
 		
 		//String sql = "SELECT CASE WHEN EXISTS (SELECT email FROM Users WHERE email = ? )THEN CAST(1 AS BIT)ELSE CAST(0 AS BIT) END";
 		//String sql = "SELECT CASE WHEN  EXISTS (SELECT email FROM Users WHERE email = ?) THEN 1 ELSE 0 END FROM Users";
-		String sql = "SELECT CASE WHEN email = ? THEN 1 ELSE 0 END FROM Users";
+		//String sql = "SELECT CASE WHEN email = ? THEN 1 ELSE 0 END FROM Users";
+		String sql = "SELECT email FROM Users WHERE email = ?";
 		
-        int user = jdbcTemplate.queryForObject(sql, Integer.class, email);
+        //int user = jdbcTemplate.queryForObject(sql, Integer.class, email);
+        CreateAccountDTO user = DataAccessUtils.singleResult(jdbcTemplate.query(sql, new EmailValidRowMapper(), email));
 		
 		return user;
 		

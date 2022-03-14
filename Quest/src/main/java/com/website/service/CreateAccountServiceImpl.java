@@ -35,28 +35,17 @@ public class CreateAccountServiceImpl implements CreateAccountServiceI {
 	}
 
 	// Constructor
-	public CreateAccountServiceImpl(CreateAccountDAOI dao, PasswordEncoder bcrypt) {
+	public CreateAccountServiceImpl(CreateAccountDAOI dao, PasswordEncoder bcrypt, CreateAccountVerifyEmail verify) {
 		this.dao = dao;
 		this.bcrypt = bcrypt;
+		this.verify = verify;
 	}
 
 ////////////////////////////////////////////////////////////////////////////////
-	// "home" = no errors, is valid
-//	@Override
-//	public void SaveCreateAccountDetails(CreateAccountDTO userData, String appURL) {
-//
-//		// Encode Password
-//		PasswordEncoding(userData);
-//		// Save User Details
-//		dao.SaveCreateAccount(userData);
-//		// Send Verification Email
-//		SendVerificationEmail(userData.getEmail(), appURL);
-//
-//	}
 
 
 	@Override
-	public String isValid(boolean result, String email, CreateAccountDTO userData, String appURL, Model model) {
+	public String isValid(boolean result, CreateAccountDTO userData, String appURL) {
 
 //		String bool = result ? "create_account/create_account" : "create_account/create_account_verify";
 //		return bool;
@@ -69,12 +58,11 @@ public class CreateAccountServiceImpl implements CreateAccountServiceI {
 		if(!result) { 
 			
 			//check email
-			int user = dao.isEmail(email);
+			CreateAccountDTO user = dao.isEmail(userData.getEmail());
 			
 			//email exists
-			if(user == 1) {
-				//send message
-				model.addAttribute("isEmail", "Email already exists.");
+			if(user != null) {
+
 				return "create_account/create_account";
 			}
 			//email does not exist
@@ -109,7 +97,7 @@ public class CreateAccountServiceImpl implements CreateAccountServiceI {
 
 ////////////////////////////////////////////////////////////////////////////////
 	@Override
-	public String CreateAccountSuccess(CreateAccountDTO createAccountDTO, String token, Model model) {
+	public String CreateAccountSuccess(CreateAccountDTO createAccountDTO, String token) {
 
 		// Get Token From Database
 		tokenDB = dao.getToken(token);
@@ -118,8 +106,6 @@ public class CreateAccountServiceImpl implements CreateAccountServiceI {
 
 		// Set Enable In Database To True To Allow Access By User
 		SetEnabled(createAccountDTO, isSuccess, tokenDB);
-		// Return Message If Null Or Expired
-		ReturnMessageIfNotValid(isSuccess, model);
 
 		return isSuccess;
 	}
@@ -148,13 +134,6 @@ public class CreateAccountServiceImpl implements CreateAccountServiceI {
 		}
 	}
 
-	@Override
-	public void ReturnMessageIfNotValid(String isSuccess, Model model) {
-		if (isSuccess == "create_account/create_account") {
-			model.addAttribute("returnMessage",
-					"Verification email expired or does not exist. Please enter details again to resend verification email.");
-		}
-	}
 ////////////////////////////////////////////////////////////////////////////////
 
 

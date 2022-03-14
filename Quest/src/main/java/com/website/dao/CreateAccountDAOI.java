@@ -15,7 +15,7 @@ public interface CreateAccountDAOI {
 	CreateAccountTokenDTO getToken(String token);
 	void enableAccount(String email, boolean enable);
 
-	int isEmail(String email);
+	CreateAccountDTO isEmail(String email);
 
 	void createAccountWithToken(String sendToEmail, String password, String token, Date calculateExpiryToken);
 	
