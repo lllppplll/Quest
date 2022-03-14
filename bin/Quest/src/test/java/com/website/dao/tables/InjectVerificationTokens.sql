@@ -1,1 +1,0 @@
-INSERT INTO VerificationTokens VALUES (1, 'email@12345.com', 'abc12345', to_date('20220309','YYYYMMDD'));

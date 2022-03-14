@@ -1,1 +1,0 @@
-INSERT INTO Users VALUES (1, 'email from inject', '', '', 0);
