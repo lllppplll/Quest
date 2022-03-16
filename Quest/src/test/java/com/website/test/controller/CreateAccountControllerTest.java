@@ -1,66 +1,192 @@
-//package com.website.test.controller;
-//
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.mockito.Mockito.doNothing;
-//import static org.mockito.Mockito.mock;
-//import static org.mockito.Mockito.times;
-//import static org.mockito.Mockito.verify;
-//import static org.mockito.Mockito.when;
-//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-//
-//import java.util.HashMap;
-//
-//import org.junit.Before;
-//import org.junit.jupiter.api.AfterEach;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Nested;
-//import org.junit.jupiter.api.Test;
-//import org.springframework.jdbc.core.JdbcTemplate;
-//import org.springframework.test.web.servlet.MockMvc;
-//import org.springframework.test.web.servlet.ResultActions;
-//import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-//import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-//import org.springframework.validation.BeanPropertyBindingResult;
-//import org.springframework.validation.BindingResult;
-//import org.springframework.validation.FieldError;
-//import org.springframework.validation.MapBindingResult;
-//import org.springframework.web.context.WebApplicationContext;
-//import org.springframework.web.context.request.WebRequest;
-//
-//import com.website.controller.CreateAccountController;
-//import com.website.dao.CreateAccountDAOImpl;
-//import com.website.dao.connection.DataSource;
-//import com.website.dao.connection.DatabaseCreate;
-//import com.website.dto.CreateAccountDTO;
-//import com.website.service.CreateAccountServiceImpl;
-//
-//public class CreateAccountControllerTest {
-//
-//	private MockMvc mockMvc;
-//
-//	@BeforeEach
-//	void setup() {
-//		mockMvc = MockMvcBuilders.standaloneSetup(new CreateAccountController()).build();
-//	}
-//
-//	@Test
-//	void CreateAccountPage() throws Exception {
-//
-//		// arrange
-//		// act
-//		// assert
-//		mockMvc.perform(get("/create_account_page"))
-//		.andExpect(status().isOk())
-//		.andExpect(view()
-//				.name("create_account/create_account"));
-//
-//	}
-//	
-//
+package com.website.test.controller;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+
+import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.ui.Model;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.MapBindingResult;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import com.website.controller.CreateAccountController;
+import com.website.dao.CreateAccountDAOImpl;
+import com.website.dao.connection.DataSource;
+import com.website.dao.connection.DatabaseCreate;
+import com.website.dto.CreateAccountDTO;
+import com.website.dto.CreateAccountTokenDTO;
+import com.website.email.CreateAccountVerifyEmail;
+import com.website.service.CreateAccountServiceI;
+import com.website.service.CreateAccountServiceImpl;
+
+
+//@WebAppConfiguration
+//@ContextConfiguration(classes = CreateAccountController.class)
+public class CreateAccountControllerTest {
+
+	private MockMvc mockMvc;
+	
+	private CreateAccountServiceImpl service;
+	private CreateAccountController controller;
+	private CreateAccountTokenDTO tokenDB;
+	private CreateAccountDTO userData;
+	private Date expiryDate;
+	private BindingResult result;
+	private WebRequest request;
+	private Model model;
+	private String token;
+	
+//	private CreateAccountDAOImpl dao;
+//	private CreateAccountVerifyEmail verify;
+//	private PasswordEncoder bcrypt;
+//    private WebApplicationContext webAppContext;
+
+	@BeforeEach
+	void setup() {
+		
+		userData = new CreateAccountDTO();
+	    //set date
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.MINUTE, 60 * 24);
+		expiryDate = calendar.getTime();
+	    tokenDB = new CreateAccountTokenDTO();
+	    model = mock(Model.class);
+	    result = mock(BindingResult.class);
+	    request = mock(WebRequest.class);
+	    
+		service = mock(CreateAccountServiceImpl.class);
+		controller = new CreateAccountController(service);
+		
+//        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+//        viewResolver.setPrefix("/WEB-INF/view/");
+//        viewResolver.setSuffix(".jsp");
+		
+		//set up
+		token = "token123";
+		userData.setEmail("email@123.com");
+	    tokenDB.setToken(token);
+		tokenDB.setEmail("email@123.com");
+		tokenDB.setExpiryDate(expiryDate);
+		
+		mockMvc = MockMvcBuilders.standaloneSetup(new CreateAccountController(service)).build();		
+	}
+
+	@Test
+	void CreateAccountPage() throws Exception {
+
+		// arrange
+		// act
+		// assert
+		mockMvc.perform(get("/create_account"))
+		.andExpect(status().isOk())
+		.andExpect(view()
+				.name("create_account/create_account"));
+	}
+	
+	@Test
+	void CreateAccountSaveModelGetsCalled() throws Exception {
+
+		// arrange
+		// act
+    	when(result.hasErrors()).thenReturn(false);
+    	when(request.getContextPath()).thenReturn("local");
+		when(service.isValid(result.hasErrors(), userData, request.getContextPath())).thenReturn("create_account/create_account");
+		
+		// assert
+		assertEquals(controller.CreateAccountSave(userData, result, request, model), "create_account/create_account");
+		verify(model, times(1)).addAttribute("isEmail", "Email already exists.");
+	}
+	
+	@Test
+	void CreateAccountSaveModeNotCalled() throws Exception {
+
+		// arrange	
+		// act
+    	when(result.hasErrors()).thenReturn(false);
+    	when(request.getContextPath()).thenReturn("local");
+		when(service.isValid(result.hasErrors(), userData, request.getContextPath())).thenReturn("create_account/create_account_success");
+	
+		// assert
+		assertEquals(controller.CreateAccountSave(userData, result, request, model), "create_account/create_account_success");
+		verify(model, times(0)).addAttribute("isEmail", "Email already exists.");
+	}
+	
+	@Test
+	void VerifyModelGetsCalled() throws Exception {
+
+		// arrange		
+		// act
+		when(service.CreateAccountSuccess(userData, token)).thenReturn("create_account/create_account");
+
+		// assert
+		assertEquals(controller.verify(userData, token, model), "create_account/create_account");
+		verify(model, times(1)).addAttribute("returnMessage",
+						"Verification email expired or does not exist. Please enter details again to resend verification email.");
+
+	}
+	
+	@Test
+	void VerifyModelNotCalled() throws Exception {
+
+		// arrange		
+		// act
+		when(service.CreateAccountSuccess(userData, token)).thenReturn("create_account/create_account_success");
+
+		// assert
+		assertEquals(controller.verify(userData, token, model), "create_account/create_account_success");
+		verify(model, times(0)).addAttribute("returnMessage",
+						"Verification email expired or does not exist. Please enter details again to resend verification email.");
+	}
+	
+	
+	
+	
+	//verify
+//	mockMvc.perform(get("/verify")
+//	.param("token", token))
+//	.andExpect(status().isOk())
+////	.andExpect(model().attribute("returnMessage",
+////			"Verification email expired or does not exist. Please enter details again to resend verification email."))
+//	.andExpect(view()
+//			.name("create_account/create_account_success"));
+	
+	
+
 //	@Nested
 //	class innerTest {
 //
@@ -153,4 +279,4 @@
 //		}
 //		
 //	}
-//}
+}

@@ -115,9 +115,9 @@ class CreateAccountDAOImplTest {
 		//email same as in database
 		assertEquals("email@.com", dbUsers.getEmail());
 		//email exists
-		assertEquals(dao.isEmail("email@.com"), 1);
+		assertEquals(dao.isEmail("email@.com"), "email@.com");
 		//email does not exist
-		assertEquals(dao.isEmail("emailNot@.com"), 0);
+		assertEquals(dao.isEmail("emailNot@.com"), null);
 	
 	}
 	

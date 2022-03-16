@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import com.website.dto.CreateAccountDTO;
 import com.website.service.CreateAccountServiceI;
@@ -62,6 +63,7 @@ public class CreateAccountController {
 		public String verify(@ModelAttribute("createAccountDTO") CreateAccountDTO createAccountDTO, @RequestParam("token") String token, Model model) {
 			
 			String isSuccess = service.CreateAccountSuccess(createAccountDTO, token);
+			//String isSuccess = "create_account/create_account_success";
 			
 			if (isSuccess == "create_account/create_account") {
 				model.addAttribute("returnMessage",
