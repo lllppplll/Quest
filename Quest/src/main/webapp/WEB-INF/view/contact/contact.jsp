@@ -14,19 +14,25 @@
 
 <a id="home_button" href="./">Home</a>
 
+<%-- <div id="email_sent" >Email sent to:</div><div>${email_sent_to}</div>
+<div id="email_not_sent" >${email_not_sent}</div> --%>
+<br/>
+<div id="email_sent" >${email_sent}</div>
+
 <div id="email_box" >
 <form:form  action="process_contact" method="POST" modelAttribute="contactDTO" >
 <input id="send_button_email" type="submit" value="Send"/>
-<form:input type="file" id="choose_file"  path="filename" />
-<form:input id="to_email" placeholder="To:" path="to" />
-<form:input id="subject_email" placeholder="Subject:" path="subject" />
-<form:textarea id="body_email" placeholder="Write..." path="body" ></form:textarea>
+<form:input type="file" id="choose_file"  onclick="inputField()" path="filename" />
+
+<form:input id="to_email" placeholder="To:" onclick="inputField()" path="to" />
+<form:input id="subject_email" placeholder="Subject:" onclick="inputField()" path="subject" />
+<form:textarea id="body_email" placeholder="Write..." onclick="inputField()" path="body" ></form:textarea>
 <!-- <label for="myFile" class="btn">Select Image</label> -->
 <!-- style="display:none;" -->
 </form:form>
 </div>
 
 <%-- <div>Email sent to: <span>${email_sent_to}</span></div> --%>
-
+<script type="text/javascript" src="URL/javascript/contact.js" ></script>
 </body>
 </html>

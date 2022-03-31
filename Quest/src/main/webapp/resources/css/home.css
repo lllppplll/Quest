@@ -7,11 +7,9 @@ body{
 	display: grid;
 }
 
-
-
 #nav_bar{
 	display: grid;
-	grid-template-columns: 900px 100px 100px 100px;
+	grid-template-columns: 900px 100px 100px 100px 100px;
 	height: 100px;
 	border: 1px solid black;
 }
@@ -24,7 +22,22 @@ body{
 	align-self: center;
 }
 
+#signIn{
+	display: none;
+}
+
 #sign_in, #contact, #my_account{
+	text-decoration: none;
+	color: black;
+	justify-self: center; 
+	align-self: center;
+}
+
+#isAdmin{
+	display: none;
+}
+#admin{
+	visibility: hidden;
 	text-decoration: none;
 	color: black;
 	justify-self: center; 

@@ -16,6 +16,13 @@ body{
 	transform: translate(-94px);
 }
 
+#email_sent{
+	font-size: 20px;
+	margin-top: 20px;
+	color: lightgreen;
+	display: none;
+}
+
 #to_email{
 	width: 500px;
 	margin-top: 10px;

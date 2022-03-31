@@ -69,7 +69,7 @@ public class CreateAccountDAOImpl implements CreateAccountDAOI {
 	public void createAccountWithToken(String email, String password, String token, Date calculateExpiryToken) {
         
 		//Connecting and saving data in database
-		Object[] sqlParameters = {email, password, "ROLES_USER", 0};
+		Object[] sqlParameters = {email, password, "ROLE_USER", 0};
 		Object[] sqlParameters1 = {email};
 		Object[] sqlParameter2 = {email, token, calculateExpiryToken};
 		

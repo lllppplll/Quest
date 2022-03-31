@@ -15,6 +15,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -27,7 +29,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
-@PropertySource("classpath:jdcb.properties")
+@PropertySource("classpath:jdbc.properties")
 @PropertySource("classpath:email.properties")
 @ComponentScan(basePackages = { "com.website" })
 public class ViewResolverConfiguration implements WebMvcConfigurer {
@@ -66,6 +68,8 @@ public class ViewResolverConfiguration implements WebMvcConfigurer {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setUrl(env.getProperty("mssql.datasource.url"));
 		dataSource.setDriverClassName(env.getProperty("mssql.datasource.driverClassName"));
+		dataSource.setUsername("mssql.datasource.username");
+		dataSource.setPassword("mssql.datasource.password");
 	
 		return dataSource;
 	}

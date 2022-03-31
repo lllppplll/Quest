@@ -7,6 +7,11 @@ body{
 	/* caret-color: transparent; */
 }
 
+.Information_table{
+	display: inline-block;
+	color: blue;
+}
+
 /* .title{
 	display: inline-block;
 	color: blue;

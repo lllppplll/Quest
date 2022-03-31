@@ -13,24 +13,32 @@ import com.website.service.ContactServiceI;
 
 @Controller
 public class ContactController {
-	
+
 	@Autowired
 	private ContactServiceI service;
-	
+
 	@RequestMapping("/contact")
-	public String ContactPage(@ModelAttribute("contactDTO") ContactDTO contactDTO) {	
+	public String ContactPage(@ModelAttribute("contactDTO") ContactDTO contactDTO) {
 		return "contact/contact";
 	}
-	
+
 	@RequestMapping("/process_contact")
 	public String SendToContact(@ModelAttribute("contactDTO") ContactDTO contactDTO, @AuthenticationPrincipal SecurityUserDTO securityUserDTO, Model model) {
-		
-		//send email
-		service.SendEmail(contactDTO.getTo(), securityUserDTO.getEmail(), contactDTO.getSubject(), contactDTO.getBody(), contactDTO.getFilename());
 
-		model.addAttribute("email_sent_to", contactDTO.getTo());
+		// send email
+		boolean sent = service.SendEmail(contactDTO.getTo(), securityUserDTO.getEmail(), contactDTO.getSubject(),
+				contactDTO.getBody(), contactDTO.getFilename());
+
+//		if (sent == true) {
+//			model.addAttribute("email_sent_to", contactDTO.getTo());
+//		}
+//		if (sent == false) {
+//			model.addAttribute("email_not_sent", "'To' field needed");
+//		}
+		
+		model.addAttribute("email_sent", sent);
 		
 		return "contact/contact";
 	}
-	
+
 }

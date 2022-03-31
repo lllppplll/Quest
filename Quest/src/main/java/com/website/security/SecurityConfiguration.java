@@ -33,6 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	//	.anyRequest()
 		.antMatchers("/my_account").authenticated()
 		.antMatchers("/contact").authenticated()
+		.antMatchers("/admin").hasRole("ADMIN")
 		.and().formLogin().loginPage("/sign_in").loginProcessingUrl("/process_login").failureUrl("/sign_in?error=true").permitAll()
 		.and().httpBasic()
 		.and().logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll();	

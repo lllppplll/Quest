@@ -1,5 +1,43 @@
 /*alert("javascript page is working");*/
 
+let signIn = document.getElementById("signIn").innerText;
+
+//sign in or sign out shown
+if(signIn == "true"){
+	document.getElementById("sign_in").style.display = "none";
+	document.getElementById("logout").style.display = "block";
+}
+else{
+	document.getElementById("logout").style.display = "none";
+	document.getElementById("sign_in").style.display = "block";
+}
+
+//admin shown
+let isAdmin = document.getElementById("isAdmin").innerText;
+console.log(isAdmin)
+
+if(isAdmin == "true"){
+	document.getElementById("admin").style.visibility = "visible";
+	console.log("inside admin")
+}
+else{
+	document.getElementById("admin").style.visibility = "hidden";
+	console.log("isAdmin none")
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*function KS1(){
 	document.getElementById("KS1_subjects").style.height = "120px";
 	document.getElementById("KS1_subjects").style.overflow = "show";

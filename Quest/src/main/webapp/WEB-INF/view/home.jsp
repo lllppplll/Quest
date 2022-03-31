@@ -8,7 +8,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<title>Home</title>
+<title>Quest</title>
 
 <!-- <link rel="shortcut icon" href="URL/image/favicon/favicon.ico"  type="image/x-icon"/> -->
 
@@ -19,14 +19,18 @@
 
     <div id="nav_bar" >
 	<div id="title" >Quest</div>
+	
+	<div id="isAdmin" >${admin}</div>
+	<a id="admin" href="admin" >Admin</a>
 
-	<a id="contact" href="contact">Contact</a>
+	<a id="contact" href="contact">Email</a>
 	<a id="my_account" href="my_account">My Account</a>
 
 	<!-- logout -->
+	<div id="signIn" >${signIn}</div>
 	<div id="signInOut" >
 	<form:form action="logout" method="POST"  id="logout">
-		<a class="logout" onclick="document.getElementById('logoutLink_switch').submit();">Sign Out</a>
+		<a class="logout" onclick="document.getElementById('logout').submit();">Sign Out</a>
 	</form:form>
 	
 	<a id="sign_in" href="sign_in">Sign In</a>

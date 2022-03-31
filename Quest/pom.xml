@@ -20,7 +20,7 @@
 
 		<spring.version>5.2.15.RELEASE</spring.version>
 		<servlet.version>4.0.1</servlet.version>
-		
+
 
 	</properties>
 	<dependencies>
@@ -48,14 +48,14 @@
 			<artifactId>spring-core</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>${servlet.version}</version>
 		</dependency>
-		
-		<!--  Spring Security  -->
+
+		<!-- Spring Security -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
@@ -67,10 +67,10 @@
 			<artifactId>spring-security-config</artifactId>
 			<version>5.3.10.RELEASE</version>
 		</dependency>
-		<!--  ////////////////////////////////////////////////////// -->
-		
-		
-		<!-- Validation (annotations in Java DTO)-->
+		<!-- ////////////////////////////////////////////////////// -->
+
+
+		<!-- Validation (annotations in Java DTO) -->
 		<!-- //////////////////////////////////////////////////////// -->
 		<dependency>
 			<groupId>javax.validation</groupId>
@@ -83,19 +83,19 @@
 			<version>6.1.2.Final</version>
 		</dependency>
 		<!-- //////////////////////////////////////////////////////// -->
-		
-		
-        <!-- Testing  -->
-        <!-- //////////////////////////////////////////////////////// -->
-        <!-- run package where tests are kept 'debug as'- JUnit Test  -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- Junit Mocks -->
-        <dependency>
+
+
+		<!-- Testing -->
+		<!-- //////////////////////////////////////////////////////// -->
+		<!-- run package where tests are kept 'debug as'- JUnit Test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- Junit Mocks -->
+		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
 			<version>3.8.0</version>
@@ -107,8 +107,8 @@
 			<version>3.8.0</version>
 			<!-- <scope>compile</scope> -->
 		</dependency>
-        <!-- database Testing -->
-        <dependency>
+		<!-- database Testing -->
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>5.2.15.RELEASE</version>
@@ -124,7 +124,7 @@
 			<version>2.3.2</version>
 			<scope>test</scope>
 		</dependency>
-		<!--  ////////////////////////////////////////////////////// -->
+		<!-- ////////////////////////////////////////////////////// -->
 
 
 	</dependencies>
@@ -161,12 +161,13 @@
 					<artifactId>maven-deploy-plugin</artifactId>
 					<version>2.8.2</version>
 				</plugin>
-				
-				<!-- Jasmine Testing  -->
+
+				<!-- Jasmine Testing -->
 				<!-- //////////////////////////////////////////////// -->
-				<!--  ctrl-alt-t for terminal-->
-				<!--  type cd "project pathname" -->
-				<!--  type cd \Users\oneph\git\Quest\Quest (mvn jasmine:bdd) in terminal , goto http://localhost:8234-->	
+				<!-- ctrl-alt-t for terminal -->
+				<!-- type cd "project pathname" -->
+				<!-- type cd \Users\oneph\git\Quest\Quest (mvn jasmine:bdd) in terminal 
+					, goto http://localhost:8234 -->
 				<plugin>
 					<groupId>com.github.searls</groupId>
 					<artifactId>jasmine-maven-plugin</artifactId>
@@ -177,14 +178,14 @@
 								<goal>test</goal>
 							</goals>
 						</execution>
-						</executions>
-						<configuration>
-					<jsSrcDir>src/main/webapp/resources/javascript</jsSrcDir>
-					<jsTestSrcDir>src/test/javascript</jsTestSrcDir>
-				</configuration>
+					</executions>
+					<configuration>
+						<jsSrcDir>src/main/webapp/resources/javascript</jsSrcDir>
+						<jsTestSrcDir>src/test/javascript</jsTestSrcDir>
+					</configuration>
 				</plugin>
 				<!-- ///////////////////////////////////////////////// -->
-				
+
 			</plugins>
 		</pluginManagement>
 	</build>

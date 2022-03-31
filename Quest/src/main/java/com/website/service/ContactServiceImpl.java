@@ -23,9 +23,16 @@ public class ContactServiceImpl implements ContactServiceI{
 	@Autowired
 	private Session sessionEmail;
 	
-	public void SendEmail(String to, String from, String subject, String body, String filename) {
+	
+	
+	public boolean SendEmail(String to, String from, String subject, String body, String filename) {
+		
+		if(to == "") {
+			return false;
+		};
+	
 
-
+		
 		// text to place in email
 
 		try {
@@ -44,16 +51,19 @@ public class ContactServiceImpl implements ContactServiceI{
 			//message part
 			BodyPart messageBodyPart = new MimeBodyPart();
 			messageBodyPart.setText(body);
-
+	
+			// add multiparts
+			Multipart multipart = new MimeMultipart();
+			multipart.addBodyPart(messageBodyPart);
+			
+			if(filename != ""){
 			//attachment part
 			MimeBodyPart attachmentPart = new MimeBodyPart();
 			attachmentPart.attachFile(new File(filename));
 			
-			// add multiparts
-			Multipart multipart = new MimeMultipart();
-			multipart.addBodyPart(messageBodyPart);
 			multipart.addBodyPart(attachmentPart);
-
+			}
+						
 			// Send message
 			message.setContent(multipart);
 			Transport.send(message);
@@ -66,6 +76,7 @@ public class ContactServiceImpl implements ContactServiceI{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return true;
 	}
 
 }
