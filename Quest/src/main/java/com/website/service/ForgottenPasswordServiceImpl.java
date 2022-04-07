@@ -80,8 +80,6 @@ public class ForgottenPasswordServiceImpl implements ForgottenPasswordServiceI {
 			 String passwordEncoded = bcrypt.encode(passwordNew);
 			//save new password in database
 			dao.saveNewPassword(email, passwordEncoded);
-			System.out.println(email + passwordEncoded);
-			System.out.println("saved complete");
 			return "forgotten_password/forgotten_password_success";
 			}	
 		 

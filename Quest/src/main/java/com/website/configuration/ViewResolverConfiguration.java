@@ -93,10 +93,10 @@ public class ViewResolverConfiguration implements WebMvcConfigurer {
 //	final String passwordEmail = env.getProperty("email.password");
 
 	Properties props = new Properties();
-	props.put("mail.smtp.auth", "true");
-	props.put("mail.smtp.starttls.enable", "true");// it’s optional in Mailtrap
-	props.put("mail.smtp.host", "smtp.gmail.com");
-	props.put("mail.smtp.port", "587");// use one of the options in the SMTP settings tab in your Mailtrap Inbox
+	props.put("mail.smtp.auth", env.getProperty("email.auth"));
+	props.put("mail.smtp.starttls.enable", env.getProperty("email.enable"));// it’s optional in Mailtrap
+	props.put("mail.smtp.host", env.getProperty("email.smtp"));
+	props.put("mail.smtp.port", env.getProperty("email.port"));// use one of the options in the SMTP settings tab in your Mailtrap Inbox
 
 	// Get the Session object.
 	Session session = Session.getInstance(props, new javax.mail.Authenticator() {
