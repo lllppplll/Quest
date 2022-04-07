@@ -1,15 +1,3 @@
-/*spyOn(document, 'getElementById').and.returnValues(
-			{style: {display: "none"}},
-			{value: {trim() {return 9} } });
-		/*spyOn(document, 'getElementById').and.returnValues(
-			{style: {display: "block"}},
-			{value: {trim() {return ""} } });*/
-			//spyOn(document, 'getElementById').and.returnValues(
-			//{style: {display: "none"}},
-			//{style: {display: "none"}},
-			//{disabled: true}
-			//)
-			
 describe("create account validation // UNIT TESTS", function(){
 	
 	beforeEach(function() {

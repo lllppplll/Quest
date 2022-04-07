@@ -22,13 +22,12 @@
 <div id="email_box" >
 <form:form  action="process_contact" method="POST" modelAttribute="contactDTO" >
 <input id="send_button_email" type="submit" value="Send"/>
-<form:input type="file" id="choose_file"  onclick="inputField()" path="filename" />
+<br/>
+<%-- <form:input type="file" id="choose_file"  onclick="inputField()" path="filename" /> --%>
 
 <form:input id="to_email" placeholder="To:" onclick="inputField()" path="to" />
 <form:input id="subject_email" placeholder="Subject:" onclick="inputField()" path="subject" />
 <form:textarea id="body_email" placeholder="Write..." onclick="inputField()" path="body" ></form:textarea>
-<!-- <label for="myFile" class="btn">Select Image</label> -->
-<!-- style="display:none;" -->
 </form:form>
 </div>
 

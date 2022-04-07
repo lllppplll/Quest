@@ -3,18 +3,13 @@ package com.website.service;
 import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.context.request.WebRequest;
-
 import com.website.dao.CreateAccountDAOI;
 import com.website.dto.CreateAccountDTO;
 import com.website.dto.CreateAccountTokenDTO;
 import com.website.email.CreateAccountVerifyEmail;
 
-import jdk.internal.org.jline.utils.Log;
 
 @Service
 public class CreateAccountServiceImpl implements CreateAccountServiceI {
@@ -46,9 +41,6 @@ public class CreateAccountServiceImpl implements CreateAccountServiceI {
 
 	@Override
 	public String isValid(boolean result, CreateAccountDTO userData, String appURL) {
-
-//		String bool = result ? "create_account/create_account" : "create_account/create_account_verify";
-//		return bool;
 		
 		//if errors on input fields
 		if(result) { return "create_account/create_account"; }
@@ -70,11 +62,9 @@ public class CreateAccountServiceImpl implements CreateAccountServiceI {
 				
 				// Encode Password
 				PasswordEncoding(userData);
-				// Save User Details
-				//dao.SaveCreateAccount(userData);
+
 				// Send Verification Email
 				verify.SendEmail(userData.getEmail(), userData.getPassword(), appURL);
-				//SendVerificationEmail(userData.getEmail(), appURL);
 				
 			}	
 		}
@@ -89,11 +79,6 @@ public class CreateAccountServiceImpl implements CreateAccountServiceI {
 		userData.setPassword(encodedPassword);
 	}
 
-	/*
-	 * @Override public void SendVerificationEmail(String email, String appURL) {
-	 * verify.SendEmail(email, appURL); }
-	 */
-////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
 	@Override

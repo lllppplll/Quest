@@ -1,11 +1,9 @@
 package com.website.controller;
 
-import java.util.Calendar;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -73,10 +71,4 @@ public class ForgottenPasswordController {
 		String isSuccess = service.checkNewPassword(forgottenPasswordNewDTO.getEmail(), forgottenPasswordNewDTO.getNewPassword(), forgottenPasswordNewDTO.getConfirmPassword(), result.hasErrors(), model);
 		return isSuccess;
 	}
-	
-	
-	
-	
-	
-	
 }

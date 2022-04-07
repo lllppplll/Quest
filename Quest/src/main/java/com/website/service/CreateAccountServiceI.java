@@ -1,21 +1,13 @@
 package com.website.service;
 
-import org.springframework.ui.Model;
-import org.springframework.web.context.request.WebRequest;
-
 import com.website.dto.CreateAccountDTO;
 import com.website.dto.CreateAccountTokenDTO;
 
 public interface CreateAccountServiceI {
-	
 
-	//Save user details
-	//void SaveCreateAccountDetails(CreateAccountDTO userData, String appURL);
     //Form is Valid
 	String isValid(boolean result, CreateAccountDTO userData, String appURL);
 	void PasswordEncoding(CreateAccountDTO userData);
-	//Email Verification
-	//void SendVerificationEmail(String email, String appURL);
 
 	
 	//Create Account Success Or Not

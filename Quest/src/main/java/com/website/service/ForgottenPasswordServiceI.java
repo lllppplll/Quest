@@ -2,9 +2,6 @@ package com.website.service;
 
 import org.springframework.ui.Model;
 
-import com.website.dto.ForgottenPasswordNewDTO;
-import com.website.dto.ForgottenPasswordTokenDTO;
-
 public interface ForgottenPasswordServiceI {
 	
 	//check if email exists

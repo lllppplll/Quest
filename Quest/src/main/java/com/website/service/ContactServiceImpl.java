@@ -1,7 +1,5 @@
 package com.website.service;
 
-import java.io.File;
-import java.io.IOException;
 
 import javax.mail.BodyPart;
 import javax.mail.Message;
@@ -25,7 +23,7 @@ public class ContactServiceImpl implements ContactServiceI{
 	
 	
 	
-	public boolean SendEmail(String to, String from, String subject, String body, String filename) {
+	public boolean SendEmail(String to, String from, String subject, String body) {
 		
 		if(to == "") {
 			return false;
@@ -56,14 +54,15 @@ public class ContactServiceImpl implements ContactServiceI{
 			Multipart multipart = new MimeMultipart();
 			multipart.addBodyPart(messageBodyPart);
 			
-			if(filename != ""){
-			//attachment part
-			MimeBodyPart attachmentPart = new MimeBodyPart();
-			attachmentPart.attachFile(new File(filename));
+			///////////////////////////////////////////
+//			if(filename != ""){
+//			//attachment part
+//			MimeBodyPart attachmentPart = new MimeBodyPart();
+//			attachmentPart.attachFile(new File(filename));	
+//			multipart.addBodyPart(attachmentPart);
+//			}
+			///////////////////////////////////////////
 			
-			multipart.addBodyPart(attachmentPart);
-			}
-						
 			// Send message
 			message.setContent(multipart);
 			Transport.send(message);
@@ -72,9 +71,9 @@ public class ContactServiceImpl implements ContactServiceI{
 
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
 		}
 		return true;
 	}

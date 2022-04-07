@@ -7,10 +7,7 @@ import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.website.dto.CreateAccountTokenDTO;
-import com.website.dto.ForgottenPasswordNewDTO;
 import com.website.dto.ForgottenPasswordTokenDTO;
-import com.website.rowmapper.EmailVerificationRowMapper;
 import com.website.rowmapper.NewPasswordRowMapper;
 
 @Repository
@@ -18,12 +15,6 @@ public class ForgottenPasswordDAOImpl implements ForgottenPasswordDAOI{
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
-//	@Override
-//	public void sendEmail(String email, String appURL) {
-//		// TODO Auto-generated method stub
-//		
-//	}
 	
 	//check email
 	@Override
@@ -66,16 +57,4 @@ public class ForgottenPasswordDAOImpl implements ForgottenPasswordDAOI{
 	    jdbcTemplate.update(sql, sqlParameter);
 		
 	}
-
-//	@Override
-//	public void enableAccount(String email) {
-//		
-//		Object[] sqlParameter = {email};		
-//		
-//		String sql = "UPDATE Users Set enable = 1 WHERE email = ?";
-//		
-//	    jdbcTemplate.update(sql, sqlParameter);
-//		
-//	}
-
 }

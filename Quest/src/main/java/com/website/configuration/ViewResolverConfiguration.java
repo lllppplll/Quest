@@ -15,8 +15,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -63,15 +61,16 @@ public class ViewResolverConfiguration implements WebMvcConfigurer {
 	
 	//Database Connection
 	@Bean
-	public DataSource dataSource() {
-		//In development
+	DataSource dataSource() {
+		
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setUrl(env.getProperty("mssql.datasource.url"));
 		dataSource.setDriverClassName(env.getProperty("mssql.datasource.driverClassName"));
-		dataSource.setUsername("mssql.datasource.username");
-		dataSource.setPassword("mssql.datasource.password");
-	
+		dataSource.setUsername(env.getProperty("mssql.datasource.username")); 
+		dataSource.setPassword(env.getProperty("mssql.datasource.password"));
+		  
 		return dataSource;
+		
 	}
 	
     //Transactions in DAO Layer
@@ -89,20 +88,20 @@ public class ViewResolverConfiguration implements WebMvcConfigurer {
 	//Send Email
 	@Bean
 	public Session SessionEmail() {
-	String host = "smtp.gmail.com";
-	final String username = env.getProperty("email.username");
-	final String passwordEmail = env.getProperty("email.password");
+//	String host = "smtp.gmail.com";
+//	final String username = env.getProperty("email.username");
+//	final String passwordEmail = env.getProperty("email.password");
 
 	Properties props = new Properties();
 	props.put("mail.smtp.auth", "true");
 	props.put("mail.smtp.starttls.enable", "true");// it’s optional in Mailtrap
-	props.put("mail.smtp.host", host);
+	props.put("mail.smtp.host", "smtp.gmail.com");
 	props.put("mail.smtp.port", "587");// use one of the options in the SMTP settings tab in your Mailtrap Inbox
 
 	// Get the Session object.
 	Session session = Session.getInstance(props, new javax.mail.Authenticator() {
 		protected PasswordAuthentication getPasswordAuthentication() {
-			return new PasswordAuthentication(username, passwordEmail);
+			return new PasswordAuthentication(env.getProperty("email.username"), env.getProperty("email.password"));
 		}
 	});
 	return session;

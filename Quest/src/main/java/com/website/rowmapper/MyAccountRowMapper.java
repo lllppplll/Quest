@@ -5,7 +5,6 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import com.website.dto.CreateAccountTokenDTO;
 import com.website.dto.MyAccountDTO;
 
 public class MyAccountRowMapper implements RowMapper<MyAccountDTO>{

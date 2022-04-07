@@ -25,7 +25,6 @@ public class MyAccountDAOImpl implements MyAccountDAOI {
 
 	@Override
 	public void updateUserInformation(MyAccountDTO myAccountDTO, String email) {
-		// TODO Auto-generated method stub
 		
 		Object[] sqlParameter = {
 				myAccountDTO.getFirstname(), 

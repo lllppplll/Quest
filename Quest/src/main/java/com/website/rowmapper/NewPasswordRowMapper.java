@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 
-import com.website.dto.CreateAccountTokenDTO;
 import com.website.dto.ForgottenPasswordTokenDTO;
 
 public class NewPasswordRowMapper implements RowMapper<ForgottenPasswordTokenDTO> {

@@ -1,11 +1,6 @@
 package com.website.email;
 
-
 import java.util.UUID;
-
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
 import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -17,17 +12,20 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import com.website.dao.CreateAccountDAOI;
 import com.website.dto.CreateAccountTokenDTO;
 
+
 @Component
-//@PropertySource("classpath:email.properties")
+@PropertySource("classpath:email.properties")
 public class CreateAccountVerifyEmail {
 	
-//	@Autowired
-//	private Environment env;
+	@Autowired 
+	private Environment env;
 	
 	@Autowired
 	private CreateAccountDAOI dao;
@@ -38,7 +36,7 @@ public class CreateAccountVerifyEmail {
 	@Autowired
 	private Session sessionEmail;
 	
-	public void SendEmail(String sendToEmail, String password, String appURL) {
+	public void SendEmail(String sendToEmail, String password, String appURL){
 		
 		// create token
 		String token = UUID.randomUUID().toString();
@@ -47,20 +45,18 @@ public class CreateAccountVerifyEmail {
 		dao.createAccountWithToken(sendToEmail, password, token, expiry.calculateExpiryToken());
 		
 		//text to place in email
-		//production url
-		String url = "localhost:8080" + appURL + "/verify?token=" + token;
-		//System.out.println(url);
+        String url = env.getProperty("email.path") + "/verify?token=" + token;
+        
 		String main_title = "Quest";
 	    String sub_title = "Thank you for registering.";
-		String messageText = "Please click on the below " 
-                + "link to activate your account.";
+		String messageText = "Please click on the link below to activate your account.";
 
 		try {
 			// Create a default MimeMessage object.
 			Message message = new MimeMessage(sessionEmail);
 
 			// Set From: header field
-			message.setFrom(new InternetAddress("OnePhoenixF@aol.com"));
+			message.setFrom(new InternetAddress(env.getProperty("email.username")));
 
 			// Set To: header field
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(sendToEmail));
@@ -76,10 +72,10 @@ public class CreateAccountVerifyEmail {
 	         String htmlText = "<h1 align='center' style='font-size: 50px; "
 		              + "color: green;"
 		              + "text-decoration: underline;' >"+main_title+"</h1>"      
-		              + "<br/>"
+		              //+ "<br/>"
 		              
-		              + "<div align='center' >"
-		              + "<img  src='cid:swordAndShield' alt='sword and shield' ></div>"      
+		              //+ "<div align='center' >"
+		              //+ "<img  src='cid:swordAndShield' alt='sword and shield' ></div>"      
 		              + "<br/>"
 		              
 		              + "<h1  align='center' style='color: black;' >"+sub_title+"</h1>" 
@@ -104,16 +100,18 @@ public class CreateAccountVerifyEmail {
 	         // add it
 	         multipart.addBodyPart(messageBodyPart);
 
-	         // second part (the image)
-	         messageBodyPart = new MimeBodyPart();
-	         DataSource fds = new FileDataSource("C:\\Users\\oneph\\git\\Quest\\Quest\\src\\main\\webapp\\resources\\image\\sword_and_shield-min-q.jpg");
+	         
+//	         // second part (the image) //  C:/Users/oneph/git/Quest/Quest/src/main/webapp/resources/image/sword_and_shield-min-q.jpg
+//	         messageBodyPart = new MimeBodyPart();       
+//	         DataSource fds = new FileDataSource(new ClassPathResource("/image/sword_and_shield-min-q.jpg").getInputStream());
+// 		     messageBodyPart.setDataHandler(new DataHandler(fds));
+//	         messageBodyPart.setHeader("Content-ID", "swordAndShield");
 
-	         messageBodyPart.setDataHandler(new DataHandler(fds));
-	         messageBodyPart.setHeader("Content-ID", "swordAndShield");
-
+////////////////////////////////////////////////////////////////////////////////
 	         // add image to the multipart
-	         multipart.addBodyPart(messageBodyPart);
+//             multipart.addBodyPart(messageBodyPart);
 
+	         
 	         // put everything together
 	         message.setContent(multipart);
 	         

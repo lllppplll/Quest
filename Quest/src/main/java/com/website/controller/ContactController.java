@@ -17,7 +17,7 @@ public class ContactController {
 	@Autowired
 	private ContactServiceI service;
 
-	@RequestMapping("/contact")
+	@RequestMapping("/contact") 
 	public String ContactPage(@ModelAttribute("contactDTO") ContactDTO contactDTO) {
 		return "contact/contact";
 	}
@@ -27,7 +27,7 @@ public class ContactController {
 
 		// send email
 		boolean sent = service.SendEmail(contactDTO.getTo(), securityUserDTO.getEmail(), contactDTO.getSubject(),
-				contactDTO.getBody(), contactDTO.getFilename());
+				contactDTO.getBody());
 
 //		if (sent == true) {
 //			model.addAttribute("email_sent_to", contactDTO.getTo());

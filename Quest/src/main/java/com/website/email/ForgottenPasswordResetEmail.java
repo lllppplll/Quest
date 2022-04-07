@@ -10,13 +10,19 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import com.website.dao.ForgottenPasswordDAOI;
 import com.website.dto.ForgottenPasswordTokenDTO;
 
 @Component
+@PropertySource("classpath:email.properties")
 public class ForgottenPasswordResetEmail {
+	
+	@Autowired
+	private Environment env; 
 	
 	@Autowired
 	private ForgottenPasswordDAOI dao;
@@ -34,11 +40,10 @@ public class ForgottenPasswordResetEmail {
 
 		// save token in database
 		dao.saveToken(sendToEmail, token, expiry.calculateExpiryToken());
-
-
-		String url = appURL + "/reset?token=" + token;
-//			String url = "adventure.eu-west-2.elasticbeanstalk.com" + "/resetPassword?token=" + token;
-
+		
+		//production
+        String url = env.getProperty("email.path") + "/reset?token=" + token; 
+    	
 		String messageText = "Please click on the below " + "link to change your password.";
 
 		try {
@@ -46,7 +51,7 @@ public class ForgottenPasswordResetEmail {
 			Message message = new MimeMessage(sessionEmail);
 
 			// Set From: header field
-			message.setFrom(new InternetAddress("OnePhoenixF@aol.com"));
+			message.setFrom(new InternetAddress(env.getProperty("email.username")));
 
 			// Set To: header field
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(sendToEmail));
@@ -55,7 +60,7 @@ public class ForgottenPasswordResetEmail {
 			message.setSubject("Forgotten Password");
 
 			// Put the content of your message
-			message.setText(messageText + "http://localhost:8080" + url);
+			message.setText(messageText + "http://" + url);
 
 			// Send message
 			Transport.send(message);
